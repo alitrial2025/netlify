@@ -1,0 +1,12 @@
+[build]
+  command = "echo \"No site build – deploying Netlify Functions only\""
+  publish = "public"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200

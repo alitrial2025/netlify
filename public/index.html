@@ -3,36 +3,553 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MovieFlix Native Proxy</title>
+    <title>MovieFlix - Social Movie Streaming Platform</title>
+    <meta name="description" content="Discover, stream, and discuss movies with friends on MovieFlix. Features social feed, marketplace, watch parties, and more.">
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
       body {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        margin: 0;
+        line-height: 1.6;
+        color: #f1f5f9;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #0f172a;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      header {
+        text-align: center;
+        padding: 4rem 0 2rem;
+      }
+
+      .logo {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      }
+
+      h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, #7dd3fc, #38bdf8, #0ea5e9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        color: #94a3b8;
+        margin-bottom: 2rem;
+      }
+
+      /* Hero Section */
+      .hero {
+        text-align: center;
+        padding: 2rem 0 4rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        color: #cbd5e1;
+      }
+
+      .download-btn {
+        display: inline-block;
+        background: linear-gradient(45deg, #0ea5e9, #0284c7);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+      }
+
+      .download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+      }
+
+      /* Features Grid */
+      .features {
+        padding: 4rem 0;
+      }
+
+      .features h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
         color: #f1f5f9;
       }
-      main {
-        text-align: center;
-        padding: 2rem;
-        background: rgba(15, 23, 42, 0.75);
-        border: 1px solid rgba(248, 250, 252, 0.08);
-        border-radius: 0.75rem;
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
       }
-      a {
-        color: #7dd3fc;
+
+      .feature-card {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(248, 250, 252, 0.1);
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+        backdrop-filter: blur(10px);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      }
+
+      .feature-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1.5rem;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      .feature-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #f1f5f9;
+      }
+
+      .feature-card p {
+        color: #94a3b8;
+        font-size: 1rem;
+      }
+
+      /* Movie Showcase */
+      .showcase {
+        padding: 4rem 0;
+      }
+
+      .showcase h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #f1f5f9;
+      }
+
+      .showcase-container {
+        position: relative;
+        overflow: hidden;
+        margin: 0 auto;
+        max-width: 1200px;
+      }
+
+      .showcase-scroll {
+        display: flex;
+        gap: 1.5rem;
+        padding: 0 20px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .showcase-scroll::-webkit-scrollbar {
+        display: none;
+      }
+
+      .movie-card {
+        flex: 0 0 280px;
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(248, 250, 252, 0.1);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+        scroll-snap-align: start;
+        backdrop-filter: blur(10px);
+      }
+
+      .movie-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      }
+
+      .movie-poster {
+        width: 100%;
+        height: 420px;
+        object-fit: cover;
+        background: linear-gradient(45deg, #1e293b, #334155);
+      }
+
+      .movie-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+      }
+
+      .movie-card-content {
+        position: relative;
+        padding: 1.5rem;
+      }
+
+      .movie-title {
+        color: #f1f5f9;
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+      }
+
+      .movie-meta {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .meta-pill {
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.2);
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #f1f5f9;
+      }
+
+      .meta-pill.secondary {
+        background: rgba(255,255,255,0.1);
+      }
+
+      .movie-description {
+        color: #cbd5e1;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin-bottom: 1rem;
+      }
+
+      .movie-actions {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      .action-btn {
+        background: rgba(229,9,20,0.9);
+        border: 1px solid rgba(229,9,20,0.5);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+
+      .action-btn:hover {
+        background: #e50914;
+        transform: translateY(-1px);
+      }
+
+      .action-btn.secondary {
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
+        color: #f1f5f9;
+      }
+
+      .action-btn.secondary:hover {
+        background: rgba(255,255,255,0.2);
+      }
+
+      .scroll-indicator {
+        text-align: center;
+        margin-top: 2rem;
+        color: #94a3b8;
+        font-size: 0.9rem;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 2rem 0;
+        border-top: 1px solid rgba(248, 250, 252, 0.1);
+        margin-top: 4rem;
+      }
+
+      footer p {
+        color: #64748b;
+        font-size: 0.9rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        .features h2, .screenshots h2 {
+          font-size: 2rem;
+        }
+
+        .features-grid, .screenshot-grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
-    <main>
-      <h1>MovieFlix Native</h1>
-      <p>This Netlify site only hosts proxy functions at <code>/.netlify/functions/*</code>.</p>
-      <p>Use the mobile app to access the full experience.</p>
-    </main>
+    <div class="container">
+      <!-- Header -->
+      <header>
+        <img src="/logo.png" alt="MovieFlix Logo" class="logo">
+        <h1>MovieFlix</h1>
+        <p class="subtitle">Social Movie Streaming Platform</p>
+      </header>
+
+      <!-- Hero Section -->
+      <section class="hero">
+        <p>
+          Discover your next favorite movie, connect with fellow movie enthusiasts,
+          buy and sell movie-related items, and enjoy watch parties with friends.
+          MovieFlix brings the cinema experience to your mobile device with social features
+          that make movie watching more interactive and fun.
+        </p>
+        <a href="https://expo.dev/@mzazimhengas/movieflix" class="download-btn" target="_blank">
+          Download on Expo Go
+        </a>
+      </section>
+
+      <!-- Features -->
+      <section class="features">
+        <h2>What MovieFlix Offers</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <img src="/movies-splash.png" alt="Movie Streaming" class="feature-icon">
+            <h3>Movie Streaming</h3>
+            <p>Stream thousands of movies with high-quality video playback and offline downloads.</p>
+          </div>
+          <div class="feature-card">
+            <img src="/spiderman.jpg" alt="Social Feed" class="feature-icon">
+            <h3>Social Feed</h3>
+            <p>Share reviews, discuss movies, and connect with other movie lovers in our community.</p>
+          </div>
+          <div class="feature-card">
+            <img src="/logo.png" alt="Marketplace" class="feature-icon">
+            <h3>Marketplace</h3>
+            <p>Buy and sell movie memorabilia, posters, and collectibles from other users.</p>
+          </div>
+          <div class="feature-card">
+            <img src="/logo.png" alt="Watch Parties" class="feature-icon">
+            <h3>Watch Parties</h3>
+            <p>Host virtual watch parties with friends and chat in real-time during movies.</p>
+          </div>
+          <div class="feature-card">
+            <img src="/logo.png" alt="Live Streams" class="feature-icon">
+            <h3>Live Streams</h3>
+            <p>Join live movie discussions and premieres with creators and influencers.</p>
+          </div>
+          <div class="feature-card">
+            <img src="/logo.png" alt="Messaging" class="feature-icon">
+            <h3>Messaging & Calls</h3>
+            <p>Connect with friends through private messaging and video calls.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Movie Showcase -->
+      <section class="showcase">
+        <h2>Featured Movies</h2>
+        <div class="showcase-container">
+          <div class="showcase-scroll">
+            <div class="movie-card">
+              <div style="position: relative;">
+                <img src="https://image.tmdb.org/t/p/w500/8cdWjvZQUOa4F5LanHd6Vtlei1z.jpg" alt="The Batman" class="movie-poster">
+                <div class="movie-overlay"></div>
+              </div>
+              <div class="movie-card-content">
+                <h3 class="movie-title">The Batman</h3>
+                <div class="movie-meta">
+                  <span class="meta-pill">HD</span>
+                  <span class="meta-pill secondary">⭐ 7.8</span>
+                </div>
+                <p class="movie-description">When a killer targets Gotham's elite with a series of sadistic machinations, a trail of cryptic clues sends the World's Greatest Detective on an investigation into the underworld.</p>
+                <div class="movie-actions">
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Watch Now</a>
+                  <button class="action-btn secondary">+ My List</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="movie-card">
+              <div style="position: relative;">
+                <img src="https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg" alt="Spider-Man: No Way Home" class="movie-poster">
+                <div class="movie-overlay"></div>
+              </div>
+              <div class="movie-card-content">
+                <h3 class="movie-title">Spider-Man: No Way Home</h3>
+                <div class="movie-meta">
+                  <span class="meta-pill">HD</span>
+                  <span class="meta-pill secondary">⭐ 8.2</span>
+                </div>
+                <p class="movie-description">Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero.</p>
+                <div class="movie-actions">
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Watch Now</a>
+                  <button class="action-btn secondary">+ My List</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="movie-card">
+              <div style="position: relative;">
+                <img src="https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg" alt="Wonder Woman 1984" class="movie-poster">
+                <div class="movie-overlay"></div>
+              </div>
+              <div class="movie-card-content">
+                <h3 class="movie-title">Wonder Woman 1984</h3>
+                <div class="movie-meta">
+                  <span class="meta-pill">HD</span>
+                  <span class="meta-pill secondary">⭐ 5.4</span>
+                </div>
+                <p class="movie-description">Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s.</p>
+                <div class="movie-actions">
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Watch Now</a>
+                  <button class="action-btn secondary">+ My List</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="movie-card">
+              <div style="position: relative;">
+                <img src="https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg" alt="Black Widow" class="movie-poster">
+                <div class="movie-overlay"></div>
+              </div>
+              <div class="movie-card-content">
+                <h3 class="movie-title">Black Widow</h3>
+                <div class="movie-meta">
+                  <span class="meta-pill">HD</span>
+                  <span class="meta-pill secondary">⭐ 6.8</span>
+                </div>
+                <p class="movie-description">Natasha Romanoff confronts the darker parts of her ledger when a dangerous conspiracy with ties to her past arises.</p>
+                <div class="movie-actions">
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Watch Now</a>
+                  <button class="action-btn secondary">+ My List</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="movie-card">
+              <div style="position: relative;">
+                <img src="https://image.tmdb.org/t/p/w500/xnopI5Xtky18MPhK40cZAGAOVeV.jpg" alt="The Suicide Squad" class="movie-poster">
+                <div class="movie-overlay"></div>
+              </div>
+              <div class="movie-card-content">
+                <h3 class="movie-title">The Suicide Squad</h3>
+                <div class="movie-meta">
+                  <span class="meta-pill">HD</span>
+                  <span class="meta-pill secondary">⭐ 7.5</span>
+                </div>
+                <p class="movie-description">Supervillains Harley Quinn, Bloodsport, Peacemaker and a collection of nutty cons at Belle Reve prison join forces.</p>
+                <div class="movie-actions">
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Watch Now</a>
+                  <button class="action-btn secondary">+ My List</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="movie-card">
+              <div style="position: relative;">
+                <img src="https://image.tmdb.org/t/p/w500/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg" alt="Justice League" class="movie-poster">
+                <div class="movie-overlay"></div>
+              </div>
+              <div class="movie-card-content">
+                <h3 class="movie-title">Justice League</h3>
+                <div class="movie-meta">
+                  <span class="meta-pill">HD</span>
+                  <span class="meta-pill secondary">⭐ 6.2</span>
+                </div>
+                <p class="movie-description">Fueled by his restored faith in humanity and inspired by Superman's selfless act, Bruce Wayne enlists the help of his new-found ally.</p>
+                <div class="movie-actions">
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Watch Now</a>
+                  <button class="action-btn secondary">+ My List</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="movie-card feature-showcase">
+              <div style="position: relative;">
+                <div class="feature-bg" style="background: linear-gradient(135deg, #ec4899, #f97316);"></div>
+                <div class="movie-overlay"></div>
+                <div class="feature-icon-large">
+                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H19V9M12 14.5C12 13.67 12.67 13 13.5 13C14.33 13 15 13.67 15 14.5C15 15.33 14.33 16 13.5 16C12.67 16 12 15.33 12 14.5M8 11.5C8 10.67 8.67 10 9.5 10C10.33 10 11 10.67 11 11.5C11 12.33 10.33 13 9.5 13C8.67 13 8 12.33 8 11.5M17 18.5C17 17.67 17.67 17 18.5 17C19.33 17 20 17.67 20 18.5C20 19.33 19.33 20 18.5 20C17.67 20 17 19.33 17 18.5Z"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="movie-card-content">
+                <h3 class="movie-title">Social Feed</h3>
+                <div class="movie-meta">
+                  <span class="meta-pill">Community</span>
+                  <span class="meta-pill secondary">💬 Reviews</span>
+                </div>
+                <p class="movie-description">Connect with fellow movie lovers! Share reviews, discuss films, follow friends, and discover trending opinions from the community.</p>
+                <div class="movie-actions">
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Explore Social</a>
+                  <button class="action-btn secondary">Follow Friends</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="movie-card feature-showcase">
+              <div style="position: relative;">
+                <div class="feature-bg" style="background: linear-gradient(135deg, #10b981, #3b82f6);"></div>
+                <div class="movie-overlay"></div>
+                <div class="feature-icon-large">
+                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white">
+                    <path d="M7,4H17V2H7V4M7,21H17V19H7V21M7,18H17V16H7V18M21,14V8L17,4H7L3,8V14H21M19,14H5V9H19V14Z"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="movie-card-content">
+                <h3 class="movie-title">Marketplace</h3>
+                <div class="movie-meta">
+                  <span class="meta-pill">Buy & Sell</span>
+                  <span class="meta-pill secondary">🛒 Collectibles</span>
+                </div>
+                <p class="movie-description">Buy and sell movie memorabilia, posters, and collectibles. From vintage movie posters to exclusive merchandise.</p>
+                <div class="movie-actions">
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Shop Now</a>
+                  <button class="action-btn secondary">Sell Items</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="scroll-indicator">← Scroll to explore movies & features →</p>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        <p>&copy; 2024 MovieFlix. Built with React Native & Expo.</p>
+      </footer>
+    </div>
   </body>
 </html>
 

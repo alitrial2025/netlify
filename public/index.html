@@ -286,6 +286,25 @@
         font-size: 0.9rem;
       }
 
+      .feature-showcase {
+        border: 2px solid rgba(255,255,255,0.2);
+      }
+
+      .feature-bg {
+        width: 100%;
+        height: 420px;
+        border-radius: 14px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .feature-icon-large {
+        opacity: 0.8;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      }
+
       /* Footer */
       footer {
         text-align: center;
@@ -332,8 +351,8 @@
           MovieFlix brings the cinema experience to your mobile device with social features
           that make movie watching more interactive and fun.
         </p>
-        <a href="https://expo.dev/@mzazimhengas/movieflix" class="download-btn" target="_blank">
-          Download on Expo Go
+        <a href="#" class="download-btn" id="download-apk" data-download-url="/download-apk">
+          Download APK
         </a>
       </section>
 
@@ -550,6 +569,38 @@
         <p>&copy; 2024 MovieFlix. Built with React Native & Expo.</p>
       </footer>
     </div>
+
+    <script>
+      (function () {
+        var btn = document.getElementById('download-apk');
+        if (!btn) return;
+
+        var downloadUrl = btn.getAttribute('data-download-url');
+        if (!downloadUrl) return;
+
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          // Trigger download without navigating away from the landing page.
+          try {
+            var iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = downloadUrl;
+            document.body.appendChild(iframe);
+
+            // Cleanup.
+            setTimeout(function () {
+              try {
+                document.body.removeChild(iframe);
+              } catch (_) {}
+            }, 60 * 1000);
+          } catch (_) {
+            // Fallback: open in a new tab.
+            window.open(downloadUrl, '_blank', 'noopener,noreferrer');
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
 

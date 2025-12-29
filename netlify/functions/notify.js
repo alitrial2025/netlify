@@ -78,7 +78,11 @@ const getUserExpoTokens = (userDoc) => {
   const tokens = [];
   if (typeof data.expoPushToken === 'string' && data.expoPushToken) tokens.push(data.expoPushToken);
   if (Array.isArray(data.expoPushTokens)) tokens.push(...data.expoPushTokens);
-  return uniq(tokens).filter((t) => typeof t === 'string' && t.startsWith('ExponentPushToken'));
+  return uniq(tokens).filter(
+    (t) =>
+      typeof t === 'string' &&
+      (t.startsWith('ExponentPushToken') || t.startsWith('ExpoPushToken')),
+  );
 };
 
 const sendExpoPush = async (messages) => {
@@ -248,7 +252,7 @@ exports.handler = async (event) => {
             title,
             body: bodyText,
             sound: 'default',
-            channelId: 'default',
+            channelId: 'messages',
             priority: 'high',
             data: { type: 'message', conversationId, messageId, from: uid, toUserId: userId },
           });
@@ -287,7 +291,7 @@ exports.handler = async (event) => {
             title,
             body: bodyText,
             sound: 'default',
-            channelId: 'default',
+            channelId: 'calls',
             priority: 'high',
             data: { type: 'call', callId, from: uid, toUserId: userId },
           });
@@ -312,7 +316,10 @@ exports.handler = async (event) => {
       const senderName = pickDisplayName(sender) || story.username || 'Someone';
 
       const followers = Array.isArray(sender.followers) ? sender.followers : [];
-      const recipients = uniq(followers).filter((m) => m && m !== uid);
+      const blocked = Array.isArray(sender.blockedUsers) ? sender.blockedUsers : [];
+      const recipients = uniq(followers)
+        .filter((m) => m && m !== uid)
+        .filter((m) => !blocked.includes(m));
       const { ids, userDocs } = await loadRecipientsFromUserIds(db, recipients);
 
       const caption = typeof story.caption === 'string' ? story.caption.trim() : '';
@@ -347,7 +354,10 @@ exports.handler = async (event) => {
       const senderName = pickDisplayName(sender) || 'Someone';
 
       const followers = Array.isArray(sender.followers) ? sender.followers : [];
-      const recipients = uniq(followers).filter((m) => m && m !== uid);
+      const blocked = Array.isArray(sender.blockedUsers) ? sender.blockedUsers : [];
+      const recipients = uniq(followers)
+        .filter((m) => m && m !== uid)
+        .filter((m) => !blocked.includes(m));
       const { ids, userDocs } = await loadRecipientsFromUserIds(db, recipients);
 
       const titleValue = typeof review.title === 'string' && review.title.trim() ? review.title.trim() : 'Reel';
@@ -488,13 +498,3 @@ exports.handler = async (event) => {
           data: { type: 'app_update', url, externalUrl },
         },
       );
-
-      const result = await sendExpoPush(expoMessages);
-      return jsonResponse(200, { ok: true, kind, sent: expoMessages.length, result });
-    }
-
-    return jsonResponse(400, { error: 'Unsupported kind' });
-  } catch (err) {
-    return jsonResponse(500, { error: err.message || 'Failed to send notification' });
-  }
-};

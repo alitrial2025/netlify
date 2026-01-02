@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MovieFlix - Social Movie Streaming Platform</title>
-    <meta name="description" content="Discover, stream, and discuss movies with friends on MovieFlix. Features social feed, marketplace, watch parties, and more.">
+    <title>MovieFlix - Movie Streaming App</title>
+    <meta name="description" content="Discover and stream movies on MovieFlix. Browse by categories, search, download for offline viewing, join interactive watch parties, and explore the marketplace.">
     <style>
       * {
         margin: 0;
@@ -16,7 +16,8 @@
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         line-height: 1.6;
         color: #f1f5f9;
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        background-color: #05060f;
+        background: linear-gradient(135deg, #150a13 0%, #05060f 100%);
         min-height: 100vh;
       }
 
@@ -126,7 +127,18 @@
         height: 80px;
         margin: 0 auto 1.5rem;
         border-radius: 12px;
-        object-fit: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.12);
+      }
+
+      .feature-icon svg {
+        width: 42px;
+        height: 42px;
+        opacity: 0.95;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
       }
 
       .feature-card h3 {
@@ -340,18 +352,17 @@
       <header>
         <img src="/logo.png" alt="MovieFlix Logo" class="logo">
         <h1>MovieFlix</h1>
-        <p class="subtitle">Social Movie Streaming Platform</p>
+        <p class="subtitle">Movie streaming, downloads, and more</p>
       </header>
 
       <!-- Hero Section -->
       <section class="hero">
         <p>
           Discover your next favorite movie, connect with fellow movie enthusiasts,
-          buy and sell movie-related items, and enjoy watch parties with friends.
-          MovieFlix brings the cinema experience to your mobile device with social features
-          that make movie watching more interactive and fun.
+          browse by categories, download for offline viewing, and enjoy interactive watch parties.
+          MovieFlix brings the cinema experience to your mobile device.
         </p>
-        <a href="#" class="download-btn" id="download-apk" data-download-url="/download-apk">
+        <a href="/download-apk" class="download-btn" id="download-apk" data-download-url="/download-apk">
           Download APK
         </a>
       </section>
@@ -361,177 +372,159 @@
         <h2>What MovieFlix Offers</h2>
         <div class="features-grid">
           <div class="feature-card">
-            <img src="/movies-splash.png" alt="Movie Streaming" class="feature-icon">
-            <h3>Movie Streaming</h3>
-            <p>Stream thousands of movies with high-quality video playback and offline downloads.</p>
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="white" role="img" aria-label="Movies">
+                <path d="M4 6h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm0 2v10h16V8H4Zm2 1h2v2H6V9Zm0 4h2v2H6v-2Zm10-4h2v2h-2V9Zm0 4h2v2h-2v-2Z"/>
+              </svg>
+            </div>
+            <h3>Home (Movies)</h3>
+            <p>Browse trending titles, jump into details, and start watching in seconds.</p>
           </div>
           <div class="feature-card">
-            <img src="/spiderman.jpg" alt="Social Feed" class="feature-icon">
-            <h3>Social Feed</h3>
-            <p>Share reviews, discuss movies, and connect with other movie lovers in our community.</p>
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="white" role="img" aria-label="Categories">
+                <path d="M10 3H3v7h7V3Zm11 0h-7v7h7V3ZM10 14H3v7h7v-7Zm11 0h-7v7h7v-7Z"/>
+              </svg>
+            </div>
+            <h3>Categories</h3>
+            <p>Explore movies by genre and quickly find what you’re in the mood for.</p>
           </div>
           <div class="feature-card">
-            <img src="/logo.png" alt="Marketplace" class="feature-icon">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="white" role="img" aria-label="Search">
+                <path d="M10 2a8 8 0 1 1 5.293 14.001l4.353 4.353-1.414 1.414-4.353-4.353A8 8 0 0 1 10 2Zm0 2a6 6 0 1 0 0 12a6 6 0 0 0 0-12Z"/>
+              </svg>
+            </div>
+            <h3>Search</h3>
+            <p>Find specific titles fast with a dedicated search experience.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="white" role="img" aria-label="Downloads">
+                <path d="M12 2a1 1 0 0 1 1 1v9.586l2.293-2.293 1.414 1.414L12 16.414 7.293 11.707l1.414-1.414L11 12.586V3a1 1 0 0 1 1-1Zm-8 17h16v2H4v-2Z"/>
+              </svg>
+            </div>
+            <h3>Downloads</h3>
+            <p>Save movies for offline viewing so you can watch anywhere.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="white" role="img" aria-label="Marketplace">
+                <path d="M7 4h14l-2 7H5L7 4Zm-2 9h14v9H5v-9Zm4 2v5h2v-5H9Zm4 0v5h2v-5h-2Z"/>
+              </svg>
+            </div>
             <h3>Marketplace</h3>
-            <p>Buy and sell movie memorabilia, posters, and collectibles from other users.</p>
+            <p>Browse listings, manage your cart, and checkout seamlessly in-app.</p>
           </div>
           <div class="feature-card">
-            <img src="/logo.png" alt="Watch Parties" class="feature-icon">
-            <h3>Watch Parties</h3>
-            <p>Host virtual watch parties with friends and chat in real-time during movies.</p>
-          </div>
-          <div class="feature-card">
-            <img src="/logo.png" alt="Live Streams" class="feature-icon">
-            <h3>Live Streams</h3>
-            <p>Join live movie discussions and premieres with creators and influencers.</p>
-          </div>
-          <div class="feature-card">
-            <img src="/logo.png" alt="Messaging" class="feature-icon">
-            <h3>Messaging & Calls</h3>
-            <p>Connect with friends through private messaging and video calls.</p>
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="white" role="img" aria-label="Interactive">
+                <path d="M4 4h16v10H7l-3 3V4Zm4 5h8v2H8V9Zm0-3h8v2H8V6Z"/>
+              </svg>
+            </div>
+            <h3>Interactive</h3>
+            <p>Extras like watch parties and interactive features built for shared viewing.</p>
           </div>
         </div>
       </section>
 
       <!-- Movie Showcase -->
       <section class="showcase">
-        <h2>Featured Movies</h2>
+        <h2>App Preview</h2>
         <div class="showcase-container">
           <div class="showcase-scroll">
-            <div class="movie-card">
+            <div class="movie-card feature-showcase">
               <div style="position: relative;">
-                <img src="https://image.tmdb.org/t/p/w500/8cdWjvZQUOa4F5LanHd6Vtlei1z.jpg" alt="The Batman" class="movie-poster">
+                <div class="feature-bg" style="background: linear-gradient(135deg, #0ea5e9, #2563eb);"></div>
                 <div class="movie-overlay"></div>
+                <div class="feature-icon-large">
+                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                    <path d="M4 6h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm0 2v10h16V8H4Zm2 1h2v2H6V9Zm0 4h2v2H6v-2Zm10-4h2v2h-2V9Zm0 4h2v2h-2v-2Z"/>
+                  </svg>
+                </div>
               </div>
               <div class="movie-card-content">
-                <h3 class="movie-title">The Batman</h3>
+                <h3 class="movie-title">Home (Movies)</h3>
                 <div class="movie-meta">
-                  <span class="meta-pill">HD</span>
-                  <span class="meta-pill secondary">⭐ 7.8</span>
+                  <span class="meta-pill">Browse</span>
+                  <span class="meta-pill secondary">Trending</span>
                 </div>
-                <p class="movie-description">When a killer targets Gotham's elite with a series of sadistic machinations, a trail of cryptic clues sends the World's Greatest Detective on an investigation into the underworld.</p>
+                <p class="movie-description">Your main hub to discover movies quickly and jump into details when something catches your eye.</p>
                 <div class="movie-actions">
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Watch Now</a>
-                  <button class="action-btn secondary">+ My List</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="movie-card">
-              <div style="position: relative;">
-                <img src="https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg" alt="Spider-Man: No Way Home" class="movie-poster">
-                <div class="movie-overlay"></div>
-              </div>
-              <div class="movie-card-content">
-                <h3 class="movie-title">Spider-Man: No Way Home</h3>
-                <div class="movie-meta">
-                  <span class="meta-pill">HD</span>
-                  <span class="meta-pill secondary">⭐ 8.2</span>
-                </div>
-                <p class="movie-description">Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero.</p>
-                <div class="movie-actions">
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Watch Now</a>
-                  <button class="action-btn secondary">+ My List</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="movie-card">
-              <div style="position: relative;">
-                <img src="https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg" alt="Wonder Woman 1984" class="movie-poster">
-                <div class="movie-overlay"></div>
-              </div>
-              <div class="movie-card-content">
-                <h3 class="movie-title">Wonder Woman 1984</h3>
-                <div class="movie-meta">
-                  <span class="meta-pill">HD</span>
-                  <span class="meta-pill secondary">⭐ 5.4</span>
-                </div>
-                <p class="movie-description">Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s.</p>
-                <div class="movie-actions">
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Watch Now</a>
-                  <button class="action-btn secondary">+ My List</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="movie-card">
-              <div style="position: relative;">
-                <img src="https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg" alt="Black Widow" class="movie-poster">
-                <div class="movie-overlay"></div>
-              </div>
-              <div class="movie-card-content">
-                <h3 class="movie-title">Black Widow</h3>
-                <div class="movie-meta">
-                  <span class="meta-pill">HD</span>
-                  <span class="meta-pill secondary">⭐ 6.8</span>
-                </div>
-                <p class="movie-description">Natasha Romanoff confronts the darker parts of her ledger when a dangerous conspiracy with ties to her past arises.</p>
-                <div class="movie-actions">
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Watch Now</a>
-                  <button class="action-btn secondary">+ My List</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="movie-card">
-              <div style="position: relative;">
-                <img src="https://image.tmdb.org/t/p/w500/xnopI5Xtky18MPhK40cZAGAOVeV.jpg" alt="The Suicide Squad" class="movie-poster">
-                <div class="movie-overlay"></div>
-              </div>
-              <div class="movie-card-content">
-                <h3 class="movie-title">The Suicide Squad</h3>
-                <div class="movie-meta">
-                  <span class="meta-pill">HD</span>
-                  <span class="meta-pill secondary">⭐ 7.5</span>
-                </div>
-                <p class="movie-description">Supervillains Harley Quinn, Bloodsport, Peacemaker and a collection of nutty cons at Belle Reve prison join forces.</p>
-                <div class="movie-actions">
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Watch Now</a>
-                  <button class="action-btn secondary">+ My List</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="movie-card">
-              <div style="position: relative;">
-                <img src="https://image.tmdb.org/t/p/w500/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg" alt="Justice League" class="movie-poster">
-                <div class="movie-overlay"></div>
-              </div>
-              <div class="movie-card-content">
-                <h3 class="movie-title">Justice League</h3>
-                <div class="movie-meta">
-                  <span class="meta-pill">HD</span>
-                  <span class="meta-pill secondary">⭐ 6.2</span>
-                </div>
-                <p class="movie-description">Fueled by his restored faith in humanity and inspired by Superman's selfless act, Bruce Wayne enlists the help of his new-found ally.</p>
-                <div class="movie-actions">
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Watch Now</a>
-                  <button class="action-btn secondary">+ My List</button>
+                  <a href="#download-apk" class="action-btn">Get the App</a>
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn secondary">Try on Expo</a>
                 </div>
               </div>
             </div>
 
             <div class="movie-card feature-showcase">
               <div style="position: relative;">
-                <div class="feature-bg" style="background: linear-gradient(135deg, #ec4899, #f97316);"></div>
+                <div class="feature-bg" style="background: linear-gradient(135deg, #22c55e, #14b8a6);"></div>
                 <div class="movie-overlay"></div>
                 <div class="feature-icon-large">
-                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white">
-                    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H19V9M12 14.5C12 13.67 12.67 13 13.5 13C14.33 13 15 13.67 15 14.5C15 15.33 14.33 16 13.5 16C12.67 16 12 15.33 12 14.5M8 11.5C8 10.67 8.67 10 9.5 10C10.33 10 11 10.67 11 11.5C11 12.33 10.33 13 9.5 13C8.67 13 8 12.33 8 11.5M17 18.5C17 17.67 17.67 17 18.5 17C19.33 17 20 17.67 20 18.5C20 19.33 19.33 20 18.5 20C17.67 20 17 19.33 17 18.5Z"/>
+                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                    <path d="M10 3H3v7h7V3Zm11 0h-7v7h7V3ZM10 14H3v7h7v-7Zm11 0h-7v7h7v-7Z"/>
                   </svg>
                 </div>
               </div>
               <div class="movie-card-content">
-                <h3 class="movie-title">Social Feed</h3>
+                <h3 class="movie-title">Categories</h3>
                 <div class="movie-meta">
-                  <span class="meta-pill">Community</span>
-                  <span class="meta-pill secondary">💬 Reviews</span>
+                  <span class="meta-pill">Genres</span>
+                  <span class="meta-pill secondary">Browse</span>
                 </div>
-                <p class="movie-description">Connect with fellow movie lovers! Share reviews, discuss films, follow friends, and discover trending opinions from the community.</p>
+                <p class="movie-description">Pick a genre and discover movies without hunting through endless lists.</p>
                 <div class="movie-actions">
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Explore Social</a>
-                  <button class="action-btn secondary">Follow Friends</button>
+                  <a href="#download-apk" class="action-btn">Get the App</a>
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn secondary">Try on Expo</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="movie-card feature-showcase">
+              <div style="position: relative;">
+                <div class="feature-bg" style="background: linear-gradient(135deg, #f59e0b, #ef4444);"></div>
+                <div class="movie-overlay"></div>
+                <div class="feature-icon-large">
+                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                    <path d="M10 2a8 8 0 1 1 5.293 14.001l4.353 4.353-1.414 1.414-4.353-4.353A8 8 0 0 1 10 2Zm0 2a6 6 0 1 0 0 12a6 6 0 0 0 0-12Z"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="movie-card-content">
+                <h3 class="movie-title">Search</h3>
+                <div class="movie-meta">
+                  <span class="meta-pill">Find</span>
+                  <span class="meta-pill secondary">Fast</span>
+                </div>
+                <p class="movie-description">Look up titles directly and jump to the movie you want without scrolling.</p>
+                <div class="movie-actions">
+                  <a href="#download-apk" class="action-btn">Get the App</a>
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn secondary">Try on Expo</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="movie-card feature-showcase">
+              <div style="position: relative;">
+                <div class="feature-bg" style="background: linear-gradient(135deg, #a855f7, #6366f1);"></div>
+                <div class="movie-overlay"></div>
+                <div class="feature-icon-large">
+                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                    <path d="M12 2a1 1 0 0 1 1 1v9.586l2.293-2.293 1.414 1.414L12 16.414 7.293 11.707l1.414-1.414L11 12.586V3a1 1 0 0 1 1-1Zm-8 17h16v2H4v-2Z"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="movie-card-content">
+                <h3 class="movie-title">Downloads</h3>
+                <div class="movie-meta">
+                  <span class="meta-pill">Offline</span>
+                  <span class="meta-pill secondary">Save</span>
+                </div>
+                <p class="movie-description">Keep your downloads organized so you can watch even without a connection.</p>
+                <div class="movie-actions">
+                  <a href="#download-apk" class="action-btn">Get the App</a>
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn secondary">Try on Expo</a>
                 </div>
               </div>
             </div>
@@ -541,27 +534,51 @@
                 <div class="feature-bg" style="background: linear-gradient(135deg, #10b981, #3b82f6);"></div>
                 <div class="movie-overlay"></div>
                 <div class="feature-icon-large">
-                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white">
-                    <path d="M7,4H17V2H7V4M7,21H17V19H7V21M7,18H17V16H7V18M21,14V8L17,4H7L3,8V14H21M19,14H5V9H19V14Z"/>
+                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                    <path d="M7 4h14l-2 7H5L7 4Zm-2 9h14v9H5v-9Zm4 2v5h2v-5H9Zm4 0v5h2v-5h-2Z"/>
                   </svg>
                 </div>
               </div>
               <div class="movie-card-content">
                 <h3 class="movie-title">Marketplace</h3>
                 <div class="movie-meta">
-                  <span class="meta-pill">Buy & Sell</span>
-                  <span class="meta-pill secondary">🛒 Collectibles</span>
+                  <span class="meta-pill">Cart</span>
+                  <span class="meta-pill secondary">Checkout</span>
                 </div>
-                <p class="movie-description">Buy and sell movie memorabilia, posters, and collectibles. From vintage movie posters to exclusive merchandise.</p>
+                <p class="movie-description">Browse products, add to cart, and complete purchases inside the app.</p>
                 <div class="movie-actions">
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn">Shop Now</a>
-                  <button class="action-btn secondary">Sell Items</button>
+                  <a href="#download-apk" class="action-btn">Get the App</a>
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn secondary">Try on Expo</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="movie-card feature-showcase">
+              <div style="position: relative;">
+                <div class="feature-bg" style="background: linear-gradient(135deg, #ec4899, #f97316);"></div>
+                <div class="movie-overlay"></div>
+                <div class="feature-icon-large">
+                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                    <path d="M4 4h16v10H7l-3 3V4Zm4 5h8v2H8V9Zm0-3h8v2H8V6Z"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="movie-card-content">
+                <h3 class="movie-title">Interactive</h3>
+                <div class="movie-meta">
+                  <span class="meta-pill">Parties</span>
+                  <span class="meta-pill secondary">More</span>
+                </div>
+                <p class="movie-description">Interactive features like watch parties that make movie time feel shared.</p>
+                <div class="movie-actions">
+                  <a href="#download-apk" class="action-btn">Get the App</a>
+                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn secondary">Try on Expo</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <p class="scroll-indicator">← Scroll to explore movies & features →</p>
+        <p class="scroll-indicator">← Scroll to preview screens →</p>
       </section>
 
       <!-- Footer -->
@@ -578,26 +595,13 @@
         var downloadUrl = btn.getAttribute('data-download-url');
         if (!downloadUrl) return;
 
+        // Ensure the link works even if JS is disabled.
+        btn.setAttribute('href', downloadUrl);
+
         btn.addEventListener('click', function (e) {
           e.preventDefault();
-
-          // Trigger download without navigating away from the landing page.
-          try {
-            var iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = downloadUrl;
-            document.body.appendChild(iframe);
-
-            // Cleanup.
-            setTimeout(function () {
-              try {
-                document.body.removeChild(iframe);
-              } catch (_) {}
-            }, 60 * 1000);
-          } catch (_) {
-            // Fallback: open in a new tab.
-            window.open(downloadUrl, '_blank', 'noopener,noreferrer');
-          }
+          // Most reliable: navigate to the download endpoint (which redirects to the asset).
+          window.location.href = downloadUrl;
         });
       })();
     </script>

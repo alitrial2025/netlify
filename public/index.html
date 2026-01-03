@@ -363,12 +363,13 @@
           MovieFlix brings the cinema experience to your mobile device.
         </p>
         <a
-          href="https://github.com/mzazimhenga22/movieflix/releases/latest"
+          href="https://github.com/mzazimhenga22/movieflix/releases/latest/download/movieflix.apk"
           class="download-btn"
           id="download-apk"
-          data-github-owner="mzazimhenga22"
-          data-github-repo="movieflix"
+          data-download-url="https://github.com/mzazimhenga22/movieflix/releases/latest/download/movieflix.apk"
           data-fallback-url="https://github.com/mzazimhenga22/movieflix/releases/latest"
+          download
+          rel="noopener"
         >
           Download APK
         </a>
@@ -599,67 +600,27 @@
         var btn = document.getElementById('download-apk');
         if (!btn) return;
 
-        var owner = btn.getAttribute('data-github-owner');
-        var repo = btn.getAttribute('data-github-repo');
-        var fallbackUrl = btn.getAttribute('data-fallback-url') || btn.getAttribute('href');
+        var downloadUrl = btn.getAttribute('data-download-url') || btn.getAttribute('href');
+        var fallbackUrl = btn.getAttribute('data-fallback-url') || 'https://github.com/mzazimhenga22/movieflix/releases/latest';
 
         // Ensure the link works even if JS is disabled.
-        if (fallbackUrl) btn.setAttribute('href', fallbackUrl);
-
-        function pickApkAsset(assets) {
-          if (!Array.isArray(assets)) return null;
-          for (var i = 0; i < assets.length; i++) {
-            var a = assets[i];
-            if (!a || !a.name || !a.browser_download_url) continue;
-            if (String(a.name).toLowerCase().endsWith('.apk')) return a;
-          }
-          return null;
-        }
+        if (downloadUrl) btn.setAttribute('href', downloadUrl);
 
         function triggerDownload(url) {
-          var a = document.createElement('a');
-          a.href = url;
-          a.rel = 'noopener';
-          a.download = '';
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
+          // Use a hidden iframe to start the download without navigating away.
+          var iframe = document.createElement('iframe');
+          iframe.style.display = 'none';
+          iframe.src = url;
+          document.body.appendChild(iframe);
+          setTimeout(function () {
+            iframe.remove();
+          }, 15000);
         }
 
         btn.addEventListener('click', function (e) {
           e.preventDefault();
-
-          var originalText = btn.textContent;
-          btn.setAttribute('aria-busy', 'true');
-          btn.textContent = 'Preparing download...';
-
-          function resetBtn() {
-            btn.textContent = originalText;
-            btn.removeAttribute('aria-busy');
-          }
-
-          if (!owner || !repo) {
-            resetBtn();
-            if (fallbackUrl) window.location.href = fallbackUrl;
-            return;
-          }
-
-          fetch('https://api.github.com/repos/' + owner + '/' + repo + '/releases/latest', {
-            headers: { Accept: 'application/vnd.github+json' }
-          })
-            .then(function (res) {
-              if (!res.ok) throw new Error('Failed to fetch release');
-              return res.json();
-            })
-            .then(function (data) {
-              var asset = pickApkAsset(data && data.assets);
-              if (!asset) throw new Error('No APK asset found');
-              triggerDownload(asset.browser_download_url);
-            })
-            .catch(function () {
-              if (fallbackUrl) window.location.href = fallbackUrl;
-            })
-            .finally(resetBtn);
+          if (downloadUrl) return triggerDownload(downloadUrl);
+          window.location.href = fallbackUrl;
         });
       })();
     </script>

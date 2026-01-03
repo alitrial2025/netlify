@@ -362,7 +362,14 @@
           browse by categories, download for offline viewing, and enjoy interactive watch parties.
           MovieFlix brings the cinema experience to your mobile device.
         </p>
-        <a href="/download-apk" class="download-btn" id="download-apk" data-download-url="/download-apk">
+        <a
+          href="https://github.com/mzazimhenga22/movieflix/releases/latest"
+          class="download-btn"
+          id="download-apk"
+          data-github-owner="mzazimhenga22"
+          data-github-repo="movieflix"
+          data-fallback-url="https://github.com/mzazimhenga22/movieflix/releases/latest"
+        >
           Download APK
         </a>
       </section>
@@ -452,7 +459,7 @@
                 <p class="movie-description">Your main hub to discover movies quickly and jump into details when something catches your eye.</p>
                 <div class="movie-actions">
                   <a href="#download-apk" class="action-btn">Get the App</a>
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn secondary">Try on Expo</a>
+                  <a href="https://github.com/mzazimhenga22/movieflix/releases" class="action-btn secondary">Releases</a>
                 </div>
               </div>
             </div>
@@ -476,7 +483,7 @@
                 <p class="movie-description">Pick a genre and discover movies without hunting through endless lists.</p>
                 <div class="movie-actions">
                   <a href="#download-apk" class="action-btn">Get the App</a>
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn secondary">Try on Expo</a>
+                  <a href="https://github.com/mzazimhenga22/movieflix/releases" class="action-btn secondary">Releases</a>
                 </div>
               </div>
             </div>
@@ -500,7 +507,7 @@
                 <p class="movie-description">Look up titles directly and jump to the movie you want without scrolling.</p>
                 <div class="movie-actions">
                   <a href="#download-apk" class="action-btn">Get the App</a>
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn secondary">Try on Expo</a>
+                  <a href="https://github.com/mzazimhenga22/movieflix/releases" class="action-btn secondary">Releases</a>
                 </div>
               </div>
             </div>
@@ -524,7 +531,7 @@
                 <p class="movie-description">Keep your downloads organized so you can watch even without a connection.</p>
                 <div class="movie-actions">
                   <a href="#download-apk" class="action-btn">Get the App</a>
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn secondary">Try on Expo</a>
+                  <a href="https://github.com/mzazimhenga22/movieflix/releases" class="action-btn secondary">Releases</a>
                 </div>
               </div>
             </div>
@@ -548,7 +555,7 @@
                 <p class="movie-description">Browse products, add to cart, and complete purchases inside the app.</p>
                 <div class="movie-actions">
                   <a href="#download-apk" class="action-btn">Get the App</a>
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn secondary">Try on Expo</a>
+                  <a href="https://github.com/mzazimhenga22/movieflix/releases" class="action-btn secondary">Releases</a>
                 </div>
               </div>
             </div>
@@ -572,7 +579,7 @@
                 <p class="movie-description">Interactive features like watch parties that make movie time feel shared.</p>
                 <div class="movie-actions">
                   <a href="#download-apk" class="action-btn">Get the App</a>
-                  <a href="https://expo.dev/@mzazimhengas/movieflix" class="action-btn secondary">Try on Expo</a>
+                  <a href="https://github.com/mzazimhenga22/movieflix/releases" class="action-btn secondary">Releases</a>
                 </div>
               </div>
             </div>
@@ -583,7 +590,7 @@
 
       <!-- Footer -->
       <footer>
-        <p>&copy; 2024 MovieFlix. Built with React Native & Expo.</p>
+        <p>&copy; 2024 MovieFlix. Built with React Native.</p>
       </footer>
     </div>
 
@@ -592,16 +599,67 @@
         var btn = document.getElementById('download-apk');
         if (!btn) return;
 
-        var downloadUrl = btn.getAttribute('data-download-url');
-        if (!downloadUrl) return;
+        var owner = btn.getAttribute('data-github-owner');
+        var repo = btn.getAttribute('data-github-repo');
+        var fallbackUrl = btn.getAttribute('data-fallback-url') || btn.getAttribute('href');
 
         // Ensure the link works even if JS is disabled.
-        btn.setAttribute('href', downloadUrl);
+        if (fallbackUrl) btn.setAttribute('href', fallbackUrl);
+
+        function pickApkAsset(assets) {
+          if (!Array.isArray(assets)) return null;
+          for (var i = 0; i < assets.length; i++) {
+            var a = assets[i];
+            if (!a || !a.name || !a.browser_download_url) continue;
+            if (String(a.name).toLowerCase().endsWith('.apk')) return a;
+          }
+          return null;
+        }
+
+        function triggerDownload(url) {
+          var a = document.createElement('a');
+          a.href = url;
+          a.rel = 'noopener';
+          a.download = '';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }
 
         btn.addEventListener('click', function (e) {
           e.preventDefault();
-          // Most reliable: navigate to the download endpoint (which redirects to the asset).
-          window.location.href = downloadUrl;
+
+          var originalText = btn.textContent;
+          btn.setAttribute('aria-busy', 'true');
+          btn.textContent = 'Preparing download...';
+
+          function resetBtn() {
+            btn.textContent = originalText;
+            btn.removeAttribute('aria-busy');
+          }
+
+          if (!owner || !repo) {
+            resetBtn();
+            if (fallbackUrl) window.location.href = fallbackUrl;
+            return;
+          }
+
+          fetch('https://api.github.com/repos/' + owner + '/' + repo + '/releases/latest', {
+            headers: { Accept: 'application/vnd.github+json' }
+          })
+            .then(function (res) {
+              if (!res.ok) throw new Error('Failed to fetch release');
+              return res.json();
+            })
+            .then(function (data) {
+              var asset = pickApkAsset(data && data.assets);
+              if (!asset) throw new Error('No APK asset found');
+              triggerDownload(asset.browser_download_url);
+            })
+            .catch(function () {
+              if (fallbackUrl) window.location.href = fallbackUrl;
+            })
+            .finally(resetBtn);
         });
       })();
     </script>

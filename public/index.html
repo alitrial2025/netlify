@@ -1,628 +1,713 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MovieFlix - Movie Streaming App</title>
-    <meta name="description" content="Discover and stream movies on MovieFlix. Browse by categories, search, download for offline viewing, join interactive watch parties, and explore the marketplace.">
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
 
-      body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        line-height: 1.6;
-        color: #f1f5f9;
-        background-color: #05060f;
-        background: linear-gradient(135deg, #150a13 0%, #05060f 100%);
-        min-height: 100vh;
-      }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MovieFlix - Movie Streaming App</title>
+  <meta name="description"
+    content="Discover and stream movies on MovieFlix. Browse by categories, search, download for offline viewing, and enjoy interactive watch parties.">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
+    :root {
+      --accent: #e50914;
+      --accent-glow: rgba(229, 9, 20, 0.4);
+      --bg-dark: #05060f;
+      --bg-card: rgba(15, 23, 42, 0.8);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+    }
 
-      /* Header */
-      header {
-        text-align: center;
-        padding: 4rem 0 2rem;
-      }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, #150a13 0%, var(--bg-dark) 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-      .logo {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 2rem;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      }
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
 
-      h1 {
-        font-size: 3rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        background: linear-gradient(45deg, #7dd3fc, #38bdf8, #0ea5e9);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      will-change: transform;
+      backface-visibility: hidden;
+    }
 
-      .subtitle {
-        font-size: 1.2rem;
-        color: #94a3b8;
-        margin-bottom: 2rem;
-      }
+    .orb-1 {
+      width: 400px;
+      height: 400px;
+      background: var(--accent);
+      top: -100px;
+      right: -100px;
+    }
 
-      /* Hero Section */
+    .orb-2 {
+      width: 300px;
+      height: 300px;
+      background: #7c3aed;
+      bottom: 20%;
+      left: -100px;
+    }
+
+    .orb-3 {
+      width: 250px;
+      height: 250px;
+      background: #0ea5e9;
+      top: 50%;
+      right: 10%;
+    }
+
+
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    header {
+      padding: 3rem 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .brand-name {
+      font-size: 1.75rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 20px var(--accent-glow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--accent-glow);
+    }
+
+    .download-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(229, 9, 20, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Mood Filters */
+    .mood-section {
+      margin-bottom: 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .mood-row {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      scrollbar-width: none;
+    }
+
+    .mood-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .mood-chip {
+      flex-shrink: 0;
+      padding: 0.6rem 1.25rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .mood-chip:hover {
+      transform: scale(1.05);
+    }
+
+    .mood-comfort {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    }
+
+    .mood-adrenaline {
+      background: linear-gradient(135deg, #f83600, #f9d423);
+    }
+
+    .mood-mystic {
+      background: linear-gradient(135deg, #7F00FF, #E100FF);
+    }
+
+    .mood-romance {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    }
+
+    .mood-scifi {
+      background: linear-gradient(135deg, #43cea2, #185a9d);
+    }
+
+    .mood-thriller {
+      background: linear-gradient(135deg, #232526, #414345);
+    }
+
+    /* Category Sections */
+    .category-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .category-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .category-title::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .see-all {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .see-all:hover {
+      text-decoration: underline;
+    }
+
+    /* Movie Cards Carousel */
+    .cards-row {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .cards-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .movie-card {
+      flex: 0 0 160px;
+      scroll-snap-align: start;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .movie-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .movie-poster {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      background: linear-gradient(135deg, #1e293b, #334155);
+    }
+
+    .movie-info {
+      padding: 0.75rem;
+    }
+
+    .movie-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .movie-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .movie-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      color: #fbbf24;
+    }
+
+    .movie-year {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    /* Genre Orbs */
+    .genre-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .genre-orb {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .genre-orb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent);
+    }
+
+    .genre-orb:hover {
+      transform: scale(1.1);
+      border-color: var(--accent);
+      box-shadow: 0 0 30px var(--accent-glow);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 0;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 2rem;
+    }
+
+    footer p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
       .hero {
-        text-align: center;
-        padding: 2rem 0 4rem;
-      }
-
-      .hero p {
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto 2rem;
-        color: #cbd5e1;
-      }
-
-      .download-btn {
-        display: inline-block;
-        background: linear-gradient(45deg, #0ea5e9, #0284c7);
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 1.1rem;
-        transition: transform 0.2s, box-shadow 0.2s;
-        box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
-      }
-
-      .download-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
-      }
-
-      /* Features Grid */
-      .features {
-        padding: 4rem 0;
-      }
-
-      .features h2 {
-        text-align: center;
-        font-size: 2.5rem;
-        margin-bottom: 3rem;
-        color: #f1f5f9;
-      }
-
-      .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-bottom: 4rem;
-      }
-
-      .feature-card {
-        background: rgba(15, 23, 42, 0.8);
-        border: 1px solid rgba(248, 250, 252, 0.1);
-        border-radius: 16px;
-        padding: 2rem;
-        text-align: center;
-        transition: transform 0.3s, box-shadow 0.3s;
-        backdrop-filter: blur(10px);
-      }
-
-      .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      }
-
-      .feature-icon {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 1.5rem;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.12);
-      }
-
-      .feature-icon svg {
-        width: 42px;
-        height: 42px;
-        opacity: 0.95;
-        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-      }
-
-      .feature-card h3 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        color: #f1f5f9;
-      }
-
-      .feature-card p {
-        color: #94a3b8;
-        font-size: 1rem;
-      }
-
-      /* Movie Showcase */
-      .showcase {
-        padding: 4rem 0;
-      }
-
-      .showcase h2 {
-        text-align: center;
-        font-size: 2.5rem;
-        margin-bottom: 3rem;
-        color: #f1f5f9;
-      }
-
-      .showcase-container {
-        position: relative;
-        overflow: hidden;
-        margin: 0 auto;
-        max-width: 1200px;
-      }
-
-      .showcase-scroll {
-        display: flex;
-        gap: 1.5rem;
-        padding: 0 20px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-      }
-
-      .showcase-scroll::-webkit-scrollbar {
-        display: none;
-      }
-
-      .movie-card {
-        flex: 0 0 280px;
-        background: rgba(15, 23, 42, 0.8);
-        border: 1px solid rgba(248, 250, 252, 0.1);
-        border-radius: 16px;
-        overflow: hidden;
-        transition: transform 0.3s, box-shadow 0.3s;
-        scroll-snap-align: start;
-        backdrop-filter: blur(10px);
-      }
-
-      .movie-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-      }
-
-      .movie-poster {
-        width: 100%;
-        height: 420px;
-        object-fit: cover;
-        background: linear-gradient(45deg, #1e293b, #334155);
-      }
-
-      .movie-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
-      }
-
-      .movie-card-content {
-        position: relative;
         padding: 1.5rem;
       }
 
-      .movie-title {
-        color: #f1f5f9;
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        line-height: 1.3;
+      header {
+        padding: 2rem 0 1.5rem;
       }
 
-      .movie-meta {
-        display: flex;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
-        flex-wrap: wrap;
+      .movie-card {
+        flex: 0 0 140px;
       }
 
-      .meta-pill {
-        background: rgba(255,255,255,0.15);
-        border: 1px solid rgba(255,255,255,0.2);
-        padding: 0.25rem 0.75rem;
-        border-radius: 12px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #f1f5f9;
+      .genre-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
       }
+    }
+  </style>
+</head>
 
-      .meta-pill.secondary {
-        background: rgba(255,255,255,0.1);
-      }
+<body>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
 
-      .movie-description {
-        color: #cbd5e1;
-        font-size: 0.9rem;
-        line-height: 1.4;
-        margin-bottom: 1rem;
-      }
+  <div class="container">
+    <header>
+      <div class="logo-group">
+        <img src="/logo.png" alt="MovieFlix" class="logo">
+        <span class="brand-name">MovieFlix</span>
+      </div>
+      <a href="https://github.com/mzazimhenga22/movieflix/releases/latest/download/movieflix.apk" class="download-btn"
+        download>
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2a1 1 0 0 1 1 1v9.586l2.293-2.293 1.414 1.414L12 16.414 7.293 11.707l1.414-1.414L11 12.586V3a1 1 0 0 1 1-1Zm-8 17h16v2H4v-2Z" />
+        </svg>
+        Download APK
+      </a>
+    </header>
 
-      .movie-actions {
-        display: flex;
-        gap: 0.75rem;
-        align-items: center;
-      }
-
-      .action-btn {
-        background: rgba(229,9,20,0.9);
-        border: 1px solid rgba(229,9,20,0.5);
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.2s;
-      }
-
-      .action-btn:hover {
-        background: #e50914;
-        transform: translateY(-1px);
-      }
-
-      .action-btn.secondary {
-        background: rgba(255,255,255,0.1);
-        border: 1px solid rgba(255,255,255,0.2);
-        color: #f1f5f9;
-      }
-
-      .action-btn.secondary:hover {
-        background: rgba(255,255,255,0.2);
-      }
-
-      .scroll-indicator {
-        text-align: center;
-        margin-top: 2rem;
-        color: #94a3b8;
-        font-size: 0.9rem;
-      }
-
-      .feature-showcase {
-        border: 2px solid rgba(255,255,255,0.2);
-      }
-
-      .feature-bg {
-        width: 100%;
-        height: 420px;
-        border-radius: 14px;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .feature-icon-large {
-        opacity: 0.8;
-        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-      }
-
-      /* Footer */
-      footer {
-        text-align: center;
-        padding: 2rem 0;
-        border-top: 1px solid rgba(248, 250, 252, 0.1);
-        margin-top: 4rem;
-      }
-
-      footer p {
-        color: #64748b;
-        font-size: 0.9rem;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        h1 {
-          font-size: 2rem;
-        }
-
-        .features h2, .screenshots h2 {
-          font-size: 2rem;
-        }
-
-        .features-grid, .screenshot-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <!-- Header -->
-      <header>
-        <img src="/logo.png" alt="MovieFlix Logo" class="logo">
-        <h1>MovieFlix</h1>
-        <p class="subtitle">Movie streaming, downloads, and more</p>
-      </header>
-
-      <!-- Hero Section -->
-      <section class="hero">
-        <p>
-          Discover your next favorite movie, connect with fellow movie enthusiasts,
-          browse by categories, download for offline viewing, and enjoy interactive watch parties.
-          MovieFlix brings the cinema experience to your mobile device.
-        </p>
-        <a
-          href="https://github.com/mzazimhenga22/movieflix/releases/latest/download/movieflix.apk"
-          class="download-btn"
-          id="download-apk"
-          data-download-url="https://github.com/mzazimhenga22/movieflix/releases/latest/download/movieflix.apk"
-          data-fallback-url="https://github.com/mzazimhenga22/movieflix/releases/latest"
-          download
-          rel="noopener"
-        >
-          Download APK
-        </a>
-      </section>
-
-      <!-- Features -->
-      <section class="features">
-        <h2>What MovieFlix Offers</h2>
-        <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="white" role="img" aria-label="Movies">
-                <path d="M4 6h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm0 2v10h16V8H4Zm2 1h2v2H6V9Zm0 4h2v2H6v-2Zm10-4h2v2h-2V9Zm0 4h2v2h-2v-2Z"/>
-              </svg>
-            </div>
-            <h3>Home (Movies)</h3>
-            <p>Browse trending titles, jump into details, and start watching in seconds.</p>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-eyebrow">🎬 Your Cinema Atlas</div>
+        <h1>Stream Movies.<br>Anytime. Anywhere.</h1>
+        <p>Discover trending titles, browse by categories, download for offline viewing, and enjoy interactive watch
+          parties with friends.</p>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-value">1000+</div>
+            <div class="stat-label">Movies</div>
           </div>
-          <div class="feature-card">
-            <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="white" role="img" aria-label="Categories">
-                <path d="M10 3H3v7h7V3Zm11 0h-7v7h7V3ZM10 14H3v7h7v-7Zm11 0h-7v7h7v-7Z"/>
-              </svg>
-            </div>
-            <h3>Categories</h3>
-            <p>Explore movies by genre and quickly find what you’re in the mood for.</p>
+          <div class="stat">
+            <div class="stat-value">20+</div>
+            <div class="stat-label">Genres</div>
           </div>
-          <div class="feature-card">
-            <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="white" role="img" aria-label="Search">
-                <path d="M10 2a8 8 0 1 1 5.293 14.001l4.353 4.353-1.414 1.414-4.353-4.353A8 8 0 0 1 10 2Zm0 2a6 6 0 1 0 0 12a6 6 0 0 0 0-12Z"/>
-              </svg>
-            </div>
-            <h3>Search</h3>
-            <p>Find specific titles fast with a dedicated search experience.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="white" role="img" aria-label="Downloads">
-                <path d="M12 2a1 1 0 0 1 1 1v9.586l2.293-2.293 1.414 1.414L12 16.414 7.293 11.707l1.414-1.414L11 12.586V3a1 1 0 0 1 1-1Zm-8 17h16v2H4v-2Z"/>
-              </svg>
-            </div>
-            <h3>Downloads</h3>
-            <p>Save movies for offline viewing so you can watch anywhere.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="white" role="img" aria-label="Marketplace">
-                <path d="M7 4h14l-2 7H5L7 4Zm-2 9h14v9H5v-9Zm4 2v5h2v-5H9Zm4 0v5h2v-5h-2Z"/>
-              </svg>
-            </div>
-            <h3>Marketplace</h3>
-            <p>Browse listings, manage your cart, and checkout seamlessly in-app.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="white" role="img" aria-label="Interactive">
-                <path d="M4 4h16v10H7l-3 3V4Zm4 5h8v2H8V9Zm0-3h8v2H8V6Z"/>
-              </svg>
-            </div>
-            <h3>Interactive</h3>
-            <p>Extras like watch parties and interactive features built for shared viewing.</p>
+          <div class="stat">
+            <div class="stat-value">∞</div>
+            <div class="stat-label">Watch Parties</div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Movie Showcase -->
-      <section class="showcase">
-        <h2>App Preview</h2>
-        <div class="showcase-container">
-          <div class="showcase-scroll">
-            <div class="movie-card feature-showcase">
-              <div style="position: relative;">
-                <div class="feature-bg" style="background: linear-gradient(135deg, #0ea5e9, #2563eb);"></div>
-                <div class="movie-overlay"></div>
-                <div class="feature-icon-large">
-                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-                    <path d="M4 6h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm0 2v10h16V8H4Zm2 1h2v2H6V9Zm0 4h2v2H6v-2Zm10-4h2v2h-2V9Zm0 4h2v2h-2v-2Z"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="movie-card-content">
-                <h3 class="movie-title">Home (Movies)</h3>
-                <div class="movie-meta">
-                  <span class="meta-pill">Browse</span>
-                  <span class="meta-pill secondary">Trending</span>
-                </div>
-                <p class="movie-description">Your main hub to discover movies quickly and jump into details when something catches your eye.</p>
-                <div class="movie-actions">
-                  <a href="#download-apk" class="action-btn">Get the App</a>
-                  <a href="https://github.com/mzazimhenga22/movieflix/releases" class="action-btn secondary">Releases</a>
-                </div>
-              </div>
-            </div>
+    <section class="mood-section">
+      <div class="section-header">
+        <span class="section-title">🎭 Mood Filters</span>
+      </div>
+      <div class="mood-row">
+        <div class="mood-chip mood-comfort">🌙 Comfort</div>
+        <div class="mood-chip mood-adrenaline">⚡ Adrenaline</div>
+        <div class="mood-chip mood-mystic">🔮 Mystic</div>
+        <div class="mood-chip mood-romance">💖 Romance</div>
+        <div class="mood-chip mood-scifi">🚀 Sci-Fi</div>
+        <div class="mood-chip mood-thriller">💀 Thriller</div>
+      </div>
+    </section>
 
-            <div class="movie-card feature-showcase">
-              <div style="position: relative;">
-                <div class="feature-bg" style="background: linear-gradient(135deg, #22c55e, #14b8a6);"></div>
-                <div class="movie-overlay"></div>
-                <div class="feature-icon-large">
-                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-                    <path d="M10 3H3v7h7V3Zm11 0h-7v7h7V3ZM10 14H3v7h7v-7Zm11 0h-7v7h7v-7Z"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="movie-card-content">
-                <h3 class="movie-title">Categories</h3>
-                <div class="movie-meta">
-                  <span class="meta-pill">Genres</span>
-                  <span class="meta-pill secondary">Browse</span>
-                </div>
-                <p class="movie-description">Pick a genre and discover movies without hunting through endless lists.</p>
-                <div class="movie-actions">
-                  <a href="#download-apk" class="action-btn">Get the App</a>
-                  <a href="https://github.com/mzazimhenga22/movieflix/releases" class="action-btn secondary">Releases</a>
-                </div>
-              </div>
-            </div>
+    <section class="category-section">
+      <div class="category-header">
+        <h2 class="category-title">Trending Now</h2>
+        <a href="#" class="see-all">See all →</a>
+      </div>
+      <div class="cards-row" id="trending-row"></div>
+    </section>
 
-            <div class="movie-card feature-showcase">
-              <div style="position: relative;">
-                <div class="feature-bg" style="background: linear-gradient(135deg, #f59e0b, #ef4444);"></div>
-                <div class="movie-overlay"></div>
-                <div class="feature-icon-large">
-                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-                    <path d="M10 2a8 8 0 1 1 5.293 14.001l4.353 4.353-1.414 1.414-4.353-4.353A8 8 0 0 1 10 2Zm0 2a6 6 0 1 0 0 12a6 6 0 0 0 0-12Z"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="movie-card-content">
-                <h3 class="movie-title">Search</h3>
-                <div class="movie-meta">
-                  <span class="meta-pill">Find</span>
-                  <span class="meta-pill secondary">Fast</span>
-                </div>
-                <p class="movie-description">Look up titles directly and jump to the movie you want without scrolling.</p>
-                <div class="movie-actions">
-                  <a href="#download-apk" class="action-btn">Get the App</a>
-                  <a href="https://github.com/mzazimhenga22/movieflix/releases" class="action-btn secondary">Releases</a>
-                </div>
-              </div>
-            </div>
+    <section class="category-section">
+      <div class="category-header">
+        <h2 class="category-title">Recommended For You</h2>
+        <a href="#" class="see-all">See all →</a>
+      </div>
+      <div class="cards-row" id="recommended-row"></div>
+    </section>
 
-            <div class="movie-card feature-showcase">
-              <div style="position: relative;">
-                <div class="feature-bg" style="background: linear-gradient(135deg, #a855f7, #6366f1);"></div>
-                <div class="movie-overlay"></div>
-                <div class="feature-icon-large">
-                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-                    <path d="M12 2a1 1 0 0 1 1 1v9.586l2.293-2.293 1.414 1.414L12 16.414 7.293 11.707l1.414-1.414L11 12.586V3a1 1 0 0 1 1-1Zm-8 17h16v2H4v-2Z"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="movie-card-content">
-                <h3 class="movie-title">Downloads</h3>
-                <div class="movie-meta">
-                  <span class="meta-pill">Offline</span>
-                  <span class="meta-pill secondary">Save</span>
-                </div>
-                <p class="movie-description">Keep your downloads organized so you can watch even without a connection.</p>
-                <div class="movie-actions">
-                  <a href="#download-apk" class="action-btn">Get the App</a>
-                  <a href="https://github.com/mzazimhenga22/movieflix/releases" class="action-btn secondary">Releases</a>
-                </div>
-              </div>
-            </div>
+    <section class="category-section">
+      <div class="category-header">
+        <h2 class="category-title">Netflix Originals</h2>
+        <a href="#" class="see-all">See all →</a>
+      </div>
+      <div class="cards-row" id="netflix-row"></div>
+    </section>
 
-            <div class="movie-card feature-showcase">
-              <div style="position: relative;">
-                <div class="feature-bg" style="background: linear-gradient(135deg, #10b981, #3b82f6);"></div>
-                <div class="movie-overlay"></div>
-                <div class="feature-icon-large">
-                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-                    <path d="M7 4h14l-2 7H5L7 4Zm-2 9h14v9H5v-9Zm4 2v5h2v-5H9Zm4 0v5h2v-5h-2Z"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="movie-card-content">
-                <h3 class="movie-title">Marketplace</h3>
-                <div class="movie-meta">
-                  <span class="meta-pill">Cart</span>
-                  <span class="meta-pill secondary">Checkout</span>
-                </div>
-                <p class="movie-description">Browse products, add to cart, and complete purchases inside the app.</p>
-                <div class="movie-actions">
-                  <a href="#download-apk" class="action-btn">Get the App</a>
-                  <a href="https://github.com/mzazimhenga22/movieflix/releases" class="action-btn secondary">Releases</a>
-                </div>
-              </div>
-            </div>
+    <section class="category-section">
+      <div class="category-header">
+        <h2 class="category-title">� Fresh Trailers</h2>
+        <a href="#" class="see-all">See all →</a>
+      </div>
+      <div class="cards-row" id="trailers-row"></div>
+    </section>
 
-            <div class="movie-card feature-showcase">
-              <div style="position: relative;">
-                <div class="feature-bg" style="background: linear-gradient(135deg, #ec4899, #f97316);"></div>
-                <div class="movie-overlay"></div>
-                <div class="feature-icon-large">
-                  <svg width="60" height="60" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-                    <path d="M4 4h16v10H7l-3 3V4Zm4 5h8v2H8V9Zm0-3h8v2H8V6Z"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="movie-card-content">
-                <h3 class="movie-title">Interactive</h3>
-                <div class="movie-meta">
-                  <span class="meta-pill">Parties</span>
-                  <span class="meta-pill secondary">More</span>
-                </div>
-                <p class="movie-description">Interactive features like watch parties that make movie time feel shared.</p>
-                <div class="movie-actions">
-                  <a href="#download-apk" class="action-btn">Get the App</a>
-                  <a href="https://github.com/mzazimhenga22/movieflix/releases" class="action-btn secondary">Releases</a>
-                </div>
-              </div>
+    <section class="category-section">
+      <div class="category-header">
+        <h2 class="category-title">🎵 Song of the Moment</h2>
+      </div>
+      <div class="cards-row" id="songs-row"></div>
+    </section>
+
+    <section class="category-section">
+      <div class="category-header">
+        <h2 class="category-title">� Genre Universe</h2>
+      </div>
+      <div class="genre-grid">
+        <div class="genre-orb">Action</div>
+        <div class="genre-orb">Comedy</div>
+        <div class="genre-orb">Drama</div>
+        <div class="genre-orb">Horror</div>
+        <div class="genre-orb">Romance</div>
+        <div class="genre-orb">Sci-Fi</div>
+        <div class="genre-orb">Thriller</div>
+        <div class="genre-orb">Fantasy</div>
+        <div class="genre-orb">Animation</div>
+        <div class="genre-orb">Documentary</div>
+      </div>
+    </section>
+
+    <footer>
+      <a href="https://github.com/mzazimhenga22/movieflix/releases/latest/download/movieflix.apk" class="download-btn" download style="margin-bottom: 1.5rem;">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M12 2a1 1 0 0 1 1 1v9.586l2.293-2.293 1.414 1.414L12 16.414 7.293 11.707l1.414-1.414L11 12.586V3a1 1 0 0 1 1-1Zm-8 17h16v2H4v-2Z"/></svg>
+        Download MovieFlix APK
+      </a>
+      <p>&copy; 2024 MovieFlix. Built with React Native.</p>
+    </footer>
+  </div>
+
+  <script>
+    const TMDB_IMG = 'https://image.tmdb.org/t/p/w342';
+
+    const sampleMovies = {
+      trending: [
+        { title: 'Dune: Part Two', poster_path: '/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg', vote_average: 8.3, release_date: '2024-02-27' },
+        { title: 'Oppenheimer', poster_path: '/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg', vote_average: 8.1, release_date: '2023-07-19' },
+        { title: 'Poor Things', poster_path: '/kCGlIMHnOm8JPXq3rXM6c5wMxcT.jpg', vote_average: 8.0, release_date: '2023-12-07' },
+        { title: 'Wonka', poster_path: '/qhb1qOilapbapxWQn9jtRCMwXJF.jpg', vote_average: 7.2, release_date: '2023-12-06' },
+        { title: 'The Holdovers', poster_path: '/vcoFlt6LoJMstMKCsiLxEMoaHjJ.jpg', vote_average: 7.9, release_date: '2023-10-27' },
+        { title: 'Barbie', poster_path: '/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg', vote_average: 7.0, release_date: '2023-07-19' },
+      ],
+      recommended: [
+        { title: 'The Shawshank Redemption', poster_path: '/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg', vote_average: 8.7, release_date: '1994-09-23' },
+        { title: 'The Godfather', poster_path: '/3bhkrj58Vtu7enYsRolD1fZdja1.jpg', vote_average: 8.7, release_date: '1972-03-14' },
+        { title: 'The Dark Knight', poster_path: '/qJ2tW6WMUDux911r6m7haRef0WH.jpg', vote_average: 8.5, release_date: '2008-07-16' },
+        { title: 'Pulp Fiction', poster_path: '/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg', vote_average: 8.5, release_date: '1994-09-10' },
+        { title: 'Forrest Gump', poster_path: '/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg', vote_average: 8.5, release_date: '1994-06-23' },
+        { title: 'Inception', poster_path: '/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg', vote_average: 8.4, release_date: '2010-07-15' },
+      ],
+      netflix: [
+        { title: 'Glass Onion', poster_path: '/vDGr1YdrlfbX9Dao1Dw7R3hPaL9.jpg', vote_average: 7.1, release_date: '2022-11-23' },
+        { title: 'All Quiet on the Western Front', poster_path: '/2IRjbi9cADuDMKmOdccw6FTn8A8.jpg', vote_average: 7.8, release_date: '2022-10-07' },
+        { title: 'The Adam Project', poster_path: '/wFjboE0aFZNbVOF05fzrka9Fqyx.jpg', vote_average: 7.0, release_date: '2022-03-11' },
+        { title: 'Don\'t Look Up', poster_path: '/th4E1yqsE8DGpAseLiUrI60Hf8V.jpg', vote_average: 7.2, release_date: '2021-12-07' },
+        { title: 'Red Notice', poster_path: '/lAXOPg0B6g6lX7xvmpB6wqmHrR9.jpg', vote_average: 6.8, release_date: '2021-11-04' },
+        { title: 'Extraction 2', poster_path: '/7gKI9hpEMcZUQpNgKrkDzJpbnNS.jpg', vote_average: 7.4, release_date: '2023-06-09' },
+      ],
+      trailers: [
+        { title: 'Deadpool & Wolverine', poster_path: '/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg', vote_average: 7.8, release_date: '2024-07-24' },
+        { title: 'Inside Out 2', poster_path: '/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg', vote_average: 7.6, release_date: '2024-06-11' },
+        { title: 'Kingdom of the Planet of the Apes', poster_path: '/gKkl37BQuKTanygYQG1pyYgLVgf.jpg', vote_average: 7.2, release_date: '2024-05-08' },
+        { title: 'Furiosa: A Mad Max Saga', poster_path: '/iADOJ8Zymht2JPMoy3R7xceZprc.jpg', vote_average: 7.7, release_date: '2024-05-22' },
+        { title: 'A Quiet Place: Day One', poster_path: '/yrpPYKijwdMHyTGIOd1iK1h0Xno.jpg', vote_average: 7.0, release_date: '2024-06-26' },
+        { title: 'Godzilla x Kong', poster_path: '/z1p34vh7dEOnLDmyCrlUVLuoDzd.jpg', vote_average: 7.2, release_date: '2024-03-27' },
+      ],
+      songs: [
+        { title: 'Barbie Soundtrack', poster_path: '/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg', vote_average: 9.0, release_date: '2023' },
+        { title: 'Spider-Verse OST', poster_path: '/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg', vote_average: 9.2, release_date: '2023' },
+        { title: 'Guardians Vol. 3', poster_path: '/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg', vote_average: 8.8, release_date: '2023' },
+        { title: 'Top Gun: Maverick', poster_path: '/62HCnUTziyWcpDaBO2i1DG35V4k.jpg', vote_average: 8.5, release_date: '2022' },
+        { title: 'Black Panther: Wakanda', poster_path: '/sv1xJUazXeYqALzczSZ3O6nkH75.jpg', vote_average: 8.7, release_date: '2022' },
+        { title: 'Encanto Soundtrack', poster_path: '/4j0PNHkMr5ax3IA8tjtxcmPU3QT.jpg', vote_average: 9.1, release_date: '2021' },
+      ]
+    };
+
+    function createMovieCard(movie) {
+      const card = document.createElement('div');
+      card.className = 'movie-card';
+      const poster = movie.poster_path ? TMDB_IMG + movie.poster_path : '/movies-splash.png';
+      const year = (movie.release_date || movie.first_air_date || '').split('-')[0];
+      const rating = movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A';
+      card.innerHTML = `
+          <img class="movie-poster" src="${poster}" alt="${movie.title || movie.name}" loading="lazy" onerror="this.src='/movies-splash.png'">
+          <div class="movie-info">
+            <div class="movie-title">${movie.title || movie.name}</div>
+            <div class="movie-meta">
+              <span class="movie-rating">★ ${rating}</span>
+              <span class="movie-year">${year}</span>
             </div>
           </div>
-        </div>
-        <p class="scroll-indicator">← Scroll to preview screens →</p>
-      </section>
+        `;
+      return card;
+    }
 
-      <!-- Footer -->
-      <footer>
-        <p>&copy; 2024 MovieFlix. Built with React Native.</p>
-      </footer>
-    </div>
-
-    <script>
-      (function () {
-        var btn = document.getElementById('download-apk');
-        if (!btn) return;
-
-        var downloadUrl = btn.getAttribute('data-download-url') || btn.getAttribute('href');
-        var fallbackUrl = btn.getAttribute('data-fallback-url') || 'https://github.com/mzazimhenga22/movieflix/releases/latest';
-
-        // Ensure the link works even if JS is disabled.
-        if (downloadUrl) btn.setAttribute('href', downloadUrl);
-
-        function triggerDownload(url) {
-          // Use a hidden iframe to start the download without navigating away.
-          var iframe = document.createElement('iframe');
-          iframe.style.display = 'none';
-          iframe.src = url;
-          document.body.appendChild(iframe);
-          setTimeout(function () {
-            iframe.remove();
-          }, 15000);
+    async function loadMovies() {
+      try {
+        const res = await fetch('/.netlify/functions/tmdb?endpoint=/trending/movie/week');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.results) {
+            document.getElementById('trending-row').innerHTML = '';
+            data.results.slice(0, 8).forEach(m => document.getElementById('trending-row').appendChild(createMovieCard(m)));
+          }
         }
+      } catch (e) { /* Use fallback */ }
 
-        btn.addEventListener('click', function (e) {
-          e.preventDefault();
-          if (downloadUrl) return triggerDownload(downloadUrl);
-          window.location.href = fallbackUrl;
-        });
-      })();
-    </script>
-  </body>
+      // Fallback: use sample data
+      const containerMap = {
+        trending: 'trending-row',
+        recommended: 'recommended-row',
+        netflix: 'netflix-row',
+        trailers: 'trailers-row',
+        songs: 'songs-row'
+      };
+      Object.entries(sampleMovies).forEach(([key, movies]) => {
+        const containerId = containerMap[key];
+        const container = document.getElementById(containerId);
+        if (container && container.children.length === 0) {
+          movies.forEach(movie => container.appendChild(createMovieCard(movie)));
+        }
+      });
+    }
+
+    loadMovies();
+  </script>
+</body>
 </html>

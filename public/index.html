@@ -1382,6 +1382,29 @@
     </footer>
   </div>
 
+  <style>
+    /* Enhancements for Image-Based Mockups */
+    .story-circle, .mobile-hero, .mobile-card, .tv-hero, .tv-card, .tv-trailer-card {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    .icon-circle, .nav-item, .meta-pill, .tv-search-pill, .tv-profile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .meta-pill { gap: 4px; }
+    .tv-search-pill { gap: 6px; }
+    .tv-profile { gap: 6px; }
+    
+    .tv-trailer-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    }
+  </style>
   <script>
     const TMDB_IMG = 'https://image.tmdb.org/t/p/w342';
 

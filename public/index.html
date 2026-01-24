@@ -576,9 +576,18 @@
                 </div>
               </div>
               <div class="mobile-icons">
-                <div class="icon-circle"></div>
-                <div class="icon-circle"></div>
+                <div class="icon-circle red"></div>
+                <div class="icon-circle red"></div>
+                <div class="icon-circle red"></div>
+                <div class="icon-circle red"></div>
               </div>
+            </div>
+
+            <!-- Meta Pills -->
+            <div class="mobile-meta-row">
+              <div class="meta-pill">🔥 100 trending</div>
+              <div class="meta-pill">🎬 50 reels</div>
+              <div class="meta-pill">⭐ Fresh</div>
             </div>
 
             <!-- Stories -->
@@ -591,8 +600,13 @@
 
             <!-- Hero -->
             <div class="mobile-hero">
-              <div class="hero-tag">#1 Trending</div>
-              <div class="hero-play-btn">▶ Play</div>
+              <div class="hero-content-overlay">
+                <div class="hero-title-mini">Dune: Part Two</div>
+                <div class="hero-btns-mini">
+                  <div class="hero-play-btn">▶ Watch</div>
+                  <div class="hero-info-btn">ⓘ</div>
+                </div>
+              </div>
             </div>
 
             <!-- List -->
@@ -624,14 +638,16 @@
                   <span class="active">Movies</span>
                   <span>TV Series</span>
                   <span>My List</span>
+                  <span>Animation</span>
+                  <span>More</span>
                 </div>
-                <div class="tv-profile">👤</div>
+                <div class="tv-profile">👤 Watcher</div>
               </div>
 
               <div class="tv-layout">
                 <!-- Left Sidebar -->
                 <div class="tv-sidebar">
-                  <div class="tv-sidebar-title">New Trailers</div>
+                  <div class="tv-sidebar-title">New Trailer</div>
                   <div class="tv-trailer-card active">
                     <div class="tv-trailer-img"></div>
                     <div class="tv-trailer-meta"></div>
@@ -639,8 +655,9 @@
                   <div class="tv-trailer-card">
                     <div class="tv-trailer-img"></div>
                   </div>
-                  <div class="tv-sidebar-title" style="margin-top: 15px;">Continue</div>
-                  <div class="tv-continue-item"></div>
+                  <div class="tv-sidebar-title" style="margin-top: 15px;">Continue Watching</div>
+                  <div class="tv-continue-item">Dune: Part Two</div>
+                  <div class="tv-continue-item">Oppenheimer</div>
                 </div>
 
                 <!-- Right Hero Area -->
@@ -651,13 +668,14 @@
                       <div class="tv-hero-meta">2024 • Sci-Fi • 2h 46m</div>
                       <div class="tv-hero-actions">
                         <div class="tv-btn primary">Watch</div>
-                        <div class="tv-btn secondary">Info</div>
+                        <div class="tv-btn secondary">Download</div>
+                        <div class="tv-btn secondary">More</div>
                       </div>
                     </div>
                   </div>
                   
                   <!-- TV Rail -->
-                  <div class="tv-rail-title">Trending Now</div>
+                  <div class="tv-rail-title">You might like</div>
                   <div class="tv-rail">
                     <div class="tv-card"></div>
                     <div class="tv-card"></div>
@@ -746,8 +764,37 @@
       .greeting-sub { font-size: 10px; color: var(--accent); text-transform: uppercase; font-weight: 700; }
       .greeting-main { font-size: 12px; font-weight: 600; color: #fff; }
 
-      .mobile-icons { display: flex; gap: 8px; }
-      .icon-circle { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.1); }
+      .mobile-icons { display: flex; gap: 4px; }
+      .icon-circle { width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,0.1); }
+      .icon-circle.red { background: linear-gradient(135deg, #e50914, #b20710); }
+
+      .mobile-meta-row { display: flex; gap: 6px; margin-bottom: 12px; overflow: hidden; }
+      .meta-pill { 
+        background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+        padding: 4px 8px; border-radius: 20px; font-size: 8px; color: #fff; white-space: nowrap;
+      }
+
+      .hero-content-overlay {
+        position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      }
+      .hero-title-mini { font-size: 14px; font-weight: 800; margin-bottom: 8px; }
+      .hero-btns-mini { display: flex; gap: 8px; align-items: center; }
+      .hero-info-btn { 
+        width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.2);
+        display: flex; align-items: center; justify-content: center; font-size: 10px;
+      }
+
+      .tv-profile {
+        background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1);
+        padding: 6px 12px; border-radius: 20px; font-size: 10px; color: #fff;
+        display: flex; align-items: center; gap: 6px; margin-left: auto;
+      }
+
+      .tv-continue-item {
+        background: rgba(255,255,255,0.05); padding: 6px 10px; border-radius: 6px;
+        font-size: 9px; color: #ccc; margin-bottom: 6px; border-left: 2px solid var(--accent);
+      }
 
       .mobile-stories {
         display: flex;

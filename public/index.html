@@ -709,11 +709,11 @@
       /* Phone Styles */
       .phone-frame {
         width: 280px;
-        height: 560px;
-        background: #1a1a1a;
+        height: 580px;
+        background: #000;
         border-radius: 40px;
-        border: 8px solid #333;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        border: 8px solid #1a1a1a;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 2px #333;
         position: relative;
         overflow: hidden;
       }
@@ -725,7 +725,7 @@
         transform: translateX(-50%);
         width: 100px;
         height: 24px;
-        background: #333;
+        background: #1a1a1a;
         border-bottom-left-radius: 16px;
         border-bottom-right-radius: 16px;
         z-index: 10;
@@ -734,7 +734,8 @@
       .phone-screen {
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, #150a13 0%, #05060f 100%);
+        /* Exact gradient from movies.tsx: featuredAccent + '60', #150a13, #05060f */
+        background: linear-gradient(180deg, rgba(229, 9, 20, 0.38) 0%, #150a13 35%, #05060f 100%);
         display: flex;
         flex-direction: column;
         padding: 36px 16px 16px;
@@ -745,7 +746,13 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 16px;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        /* Header Glow from movies.tsx */
+        background: linear-gradient(135deg, rgba(229,9,20,0.1) 0%, rgba(10,12,24,0.0) 100%);
+        border-radius: 12px;
+        padding: 8px;
+        border: 1px solid rgba(255,255,255,0.05);
       }
 
       .mobile-greeting {
@@ -756,106 +763,87 @@
 
       .greeting-dot {
         width: 4px;
-        height: 32px;
-        background: var(--accent);
+        height: 24px;
+        background: #e50914;
         border-radius: 2px;
       }
 
-      .greeting-sub { font-size: 10px; color: var(--accent); text-transform: uppercase; font-weight: 700; }
-      .greeting-main { font-size: 12px; font-weight: 600; color: #fff; }
+      .greeting-sub { font-size: 9px; color: #ff5e62; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+      .greeting-main { font-size: 11px; font-weight: 600; color: #fff; }
 
       .mobile-icons { display: flex; gap: 4px; }
       .icon-circle { width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,0.1); }
-      .icon-circle.red { background: linear-gradient(135deg, #e50914, #b20710); }
+      .icon-circle.red { background: linear-gradient(135deg, #e50914, #b20710); box-shadow: 0 2px 8px rgba(229,9,20,0.4); }
 
-      .mobile-meta-row { display: flex; gap: 6px; margin-bottom: 12px; overflow: hidden; }
+      .mobile-meta-row { display: flex; gap: 6px; margin-bottom: 16px; overflow: hidden; padding-left: 4px; }
       .meta-pill { 
-        background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-        padding: 4px 8px; border-radius: 20px; font-size: 8px; color: #fff; white-space: nowrap;
-      }
-
-      .hero-content-overlay {
-        position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;
-        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-      }
-      .hero-title-mini { font-size: 14px; font-weight: 800; margin-bottom: 8px; }
-      .hero-btns-mini { display: flex; gap: 8px; align-items: center; }
-      .hero-info-btn { 
-        width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.2);
-        display: flex; align-items: center; justify-content: center; font-size: 10px;
-      }
-
-      .tv-profile {
-        background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1);
-        padding: 6px 12px; border-radius: 20px; font-size: 10px; color: #fff;
-        display: flex; align-items: center; gap: 6px; margin-left: auto;
-      }
-
-      .tv-continue-item {
-        background: rgba(255,255,255,0.05); padding: 6px 10px; border-radius: 6px;
-        font-size: 9px; color: #ccc; margin-bottom: 6px; border-left: 2px solid var(--accent);
+        background: rgba(20, 20, 30, 0.6); 
+        border: 1px solid rgba(255,255,255,0.15);
+        padding: 4px 10px; border-radius: 20px; font-size: 9px; color: #fff; white-space: nowrap;
+        backdrop-filter: blur(10px);
+        display: flex; align-items: center; gap: 4px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       }
 
       .mobile-stories {
         display: flex;
         gap: 12px;
         margin-bottom: 20px;
+        padding-left: 4px;
       }
 
       .story-circle {
-        width: 48px;
-        height: 48px;
+        width: 44px;
+        height: 44px;
         border-radius: 50%;
-        border: 2px solid var(--accent);
-        background: #333;
+        border: 2px solid #e50914;
+        background: #222;
+        box-shadow: 0 0 0 2px rgba(0,0,0,0.5);
       }
-      .story-circle.active { border-color: #7c3aed; }
+      .story-circle.active { border-color: #ff5e62; }
 
       .mobile-hero {
         flex: 1;
-        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent), #333;
+        background: linear-gradient(to top, #111 10%, transparent), #333;
         border-radius: 16px;
         margin-bottom: 20px;
         position: relative;
         display: flex;
         align-items: flex-end;
-        padding: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.1);
       }
 
-      .hero-tag {
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        background: var(--accent);
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 10px;
-        font-weight: 700;
+      .hero-content-overlay {
+        width: 100%; padding: 12px;
+        background: linear-gradient(to top, rgba(5,6,15,0.95), transparent);
       }
-
+      .hero-title-mini { font-size: 14px; font-weight: 800; margin-bottom: 8px; color: #fff; }
+      .hero-btns-mini { display: flex; gap: 8px; align-items: center; }
       .hero-play-btn {
-        background: #fff;
-        color: #000;
-        padding: 6px 16px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 700;
+        background: #fff; color: #000; padding: 6px 14px; border-radius: 20px; font-size: 10px; font-weight: 700;
+      }
+      .hero-info-btn { 
+        width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.2);
+        display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff;
       }
 
-      .mobile-list-title { font-size: 12px; font-weight: 700; margin-bottom: 8px; }
-      .mobile-list { display: flex; gap: 8px; overflow: hidden; margin-bottom: 16px; }
-      .mobile-card { width: 80px; height: 120px; background: #333; border-radius: 8px; flex-shrink: 0; }
+      .mobile-list-title { font-size: 11px; font-weight: 700; margin-bottom: 8px; color: #e5e5e5; padding-left: 4px; }
+      .mobile-list { display: flex; gap: 8px; overflow: hidden; margin-bottom: 16px; padding-left: 4px; }
+      .mobile-card { width: 80px; height: 110px; background: #222; border-radius: 8px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1); }
 
       .mobile-nav {
-        height: 40px;
+        height: 44px;
         display: flex;
         justify-content: space-around;
         align-items: center;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        padding-top: 8px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        background: rgba(5,6,15,0.95);
+        margin: 0 -16px -16px;
+        padding-bottom: 16px;
       }
-      .nav-item { width: 24px; height: 24px; background: #444; border-radius: 4px; }
-      .nav-item.active { background: var(--accent); }
+      .nav-item { width: 24px; height: 24px; background: #333; border-radius: 4px; }
+      .nav-item.active { background: #e50914; }
 
 
       /* TV Styles */
@@ -866,22 +854,22 @@
       }
 
       .tv-frame {
-        width: 600px;
-        height: 340px;
-        background: #1a1a1a;
+        width: 640px;
+        height: 360px;
+        background: #0a0a0a;
         border-radius: 8px;
-        border: 12px solid #222;
+        border: 12px solid #111;
         border-bottom-width: 24px;
-        box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+        box-shadow: 0 40px 80px rgba(0,0,0,0.6);
         position: relative;
         overflow: hidden;
       }
 
       .tv-stand {
-        width: 120px;
-        height: 20px;
-        background: #1a1a1a;
-        margin-top: -2px;
+        width: 140px;
+        height: 24px;
+        background: linear-gradient(to bottom, #111, #0a0a0a);
+        margin-top: -4px;
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;
       }
@@ -889,10 +877,25 @@
       .tv-screen {
         width: 100%;
         height: 100%;
-        background: #030408;
+        /* Gradient from movieflixtv/app/(tabs)/movies.tsx */
+        background: linear-gradient(135deg, #e50914 0%, #0a0a0a 60%, #000000 100%);
         display: flex;
         flex-direction: column;
-        padding: 20px;
+        padding: 0; /* Padding inside glass panel */
+      }
+
+      /* Simulated TvGlassPanel */
+      .tv-glass-panel {
+        flex: 1;
+        margin: 16px;
+        background: rgba(20, 20, 20, 0.7);
+        backdrop-filter: blur(30px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
       }
 
       .tv-top-bar {
@@ -903,21 +906,28 @@
       }
 
       .tv-search-pill {
-        background: rgba(255,255,255,0.1);
+        background: rgba(0,0,0,0.4);
+        border: 1px solid rgba(255,255,255,0.1);
         padding: 6px 16px;
         border-radius: 20px;
-        font-size: 12px;
+        font-size: 11px;
         color: #ccc;
       }
 
       .tv-tabs {
         display: flex;
-        gap: 16px;
-        font-size: 12px;
-        font-weight: 600;
-        color: #888;
+        gap: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        color: rgba(255,255,255,0.6);
       }
-      .tv-tabs .active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+      .tv-tabs .active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.4); }
+
+      .tv-profile {
+        background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
+        padding: 6px 12px; border-radius: 20px; font-size: 10px; color: #fff;
+        display: flex; align-items: center; gap: 6px; margin-left: auto;
+      }
 
       .tv-layout {
         display: flex;
@@ -926,13 +936,14 @@
       }
 
       .tv-sidebar {
-        width: 140px;
-        background: rgba(255,255,255,0.05);
+        width: 150px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.05);
         border-radius: 12px;
         padding: 12px;
       }
 
-      .tv-sidebar-title { font-size: 10px; color: #aaa; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
+      .tv-sidebar-title { font-size: 10px; color: #aaa; margin-bottom: 8px; font-weight: 800; text-transform: uppercase; }
       
       .tv-trailer-card {
         height: 50px;
@@ -941,58 +952,66 @@
         margin-bottom: 8px;
         display: flex;
         overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.05);
       }
-      .tv-trailer-card.active { border: 2px solid #fff; transform: scale(1.05); }
+      .tv-trailer-card.active { border: 2px solid #fff; transform: scale(1.02); background: rgba(255,255,255,0.1); }
       .tv-trailer-img { width: 40px; background: #333; height: 100%; }
 
-      .tv-continue-item { height: 30px; background: rgba(255,255,255,0.05); border-radius: 6px; }
+      .tv-continue-item {
+        background: rgba(255,255,255,0.05); padding: 8px 10px; border-radius: 6px;
+        font-size: 9px; color: #ccc; margin-bottom: 6px; border-left: 2px solid #e50914;
+      }
 
       .tv-content { flex: 1; display: flex; flex-direction: column; }
 
       .tv-hero {
         flex: 1;
-        background: linear-gradient(90deg, #000 0%, transparent 80%), #222;
+        background: linear-gradient(90deg, #000 0%, transparent 90%), #222;
         border-radius: 12px;
         margin-bottom: 16px;
         display: flex;
         align-items: center;
-        padding-left: 24px;
+        padding-left: 32px;
         position: relative;
         overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       }
       
       .tv-hero::after {
         content: '';
         position: absolute;
-        top: 0; right: 0; bottom: 0; width: 60%;
-        background: linear-gradient(to right, transparent, rgba(124, 58, 237, 0.2));
+        top: 0; right: 0; bottom: 0; width: 50%;
+        background: linear-gradient(to right, transparent, rgba(229, 9, 20, 0.15));
         z-index: 0;
       }
 
       .tv-hero-info { position: relative; z-index: 1; }
-      .tv-hero-title { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
-      .tv-hero-meta { font-size: 10px; color: #aaa; margin-bottom: 12px; }
-      .tv-hero-actions { display: flex; gap: 8px; }
+      .tv-hero-title { font-size: 28px; font-weight: 900; margin-bottom: 6px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+      .tv-hero-meta { font-size: 11px; color: #ccc; margin-bottom: 16px; font-weight: 600; }
+      .tv-hero-actions { display: flex; gap: 10px; }
 
       .tv-btn {
-        padding: 6px 16px;
-        border-radius: 4px;
-        font-size: 10px;
-        font-weight: 700;
+        padding: 8px 18px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
       .tv-btn.primary { background: #fff; color: #000; }
-      .tv-btn.secondary { background: rgba(255,255,255,0.2); color: #fff; }
+      .tv-btn.secondary { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.1); }
 
-      .tv-rail-title { font-size: 11px; font-weight: 700; margin-bottom: 6px; color: #ddd; }
-      .tv-rail { display: flex; gap: 8px; }
-      .tv-card { width: 80px; height: 45px; background: #333; border-radius: 4px; }
+      .tv-rail-title { font-size: 12px; font-weight: 700; margin-bottom: 8px; color: #ddd; }
+      .tv-rail { display: flex; gap: 10px; }
+      .tv-card { width: 90px; height: 50px; background: #2a2a2a; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); }
 
       @media (max-width: 900px) {
         .tv-frame { width: 100%; height: auto; aspect-ratio: 16/9; }
-        .tv-screen { padding: 10px; }
+        .tv-glass-panel { margin: 8px; padding: 10px; }
         .tv-top-bar { margin-bottom: 10px; gap: 10px; }
-        .tv-sidebar { width: 80px; }
-        .tv-hero-title { font-size: 16px; }
+        .tv-sidebar { width: 90px; }
+        .tv-hero-title { font-size: 18px; }
       }
     </style>
 

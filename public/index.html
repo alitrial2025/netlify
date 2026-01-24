@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
+  <meta charset=add "utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MovieFlix - Movie Streaming App</title>
   <meta name="description"
@@ -949,6 +949,246 @@
       }
     </style>
 
+    <!-- Day in the Life Section -->
+    <section class="narrative-section">
+      <div class="section-header">
+        <span class="section-title">🕰️ Your Day with MovieFlix</span>
+      </div>
+      <div class="timeline">
+        <div class="timeline-line"></div>
+        <div class="timeline-item">
+          <div class="timeline-content left">
+            <h3>8:00 AM • The Commute</h3>
+            <p>Resume "Dune: Part Two" exactly where you left off. Offline mode keeps it smooth underground.</p>
+          </div>
+          <div class="timeline-point">🚌</div>
+          <div class="timeline-visual">
+            <div class="mini-phone">
+              <div class="mini-screen resume-screen">
+                <div class="mini-cover"></div>
+                <div class="mini-ui">
+                  <span>Resuming...</span>
+                  <div class="progress-bar"><div class="fill"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reverse">
+          <div class="timeline-content right">
+            <h3>12:30 PM • Lunch Break</h3>
+            <p>Too short for a movie? Swipe through "Fresh Drops" and Trailers to find your weekend watch.</p>
+          </div>
+          <div class="timeline-point">🍱</div>
+          <div class="timeline-visual">
+             <div class="mini-phone">
+              <div class="mini-screen vertical-feed">
+                <div class="feed-item item-1"></div>
+                <div class="feed-item item-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content left">
+            <h3>8:00 PM • Movie Night</h3>
+            <p>Cast to the big screen. The "Comfort" mood filter picks the perfect chill film for a Tuesday.</p>
+          </div>
+          <div class="timeline-point">🛋️</div>
+          <div class="timeline-visual">
+            <div class="mini-tv">
+              <div class="mini-tv-screen">
+                <div class="mood-selected">🌙 Comfort Mode</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Watch Party Demo -->
+    <section class="watch-party-demo">
+      <div class="section-header">
+        <span class="section-title">🍿 Watch Together, Miles Apart</span>
+      </div>
+      <div class="wp-container">
+        <div class="wp-phone p1">
+          <div class="wp-screen">
+            <div class="wp-header">
+              <span class="dot"></span> Watch Party
+            </div>
+            <div class="wp-video"></div>
+            <div class="wp-chat-area">
+              <div class="chat-bubble left pop-1">Did you see that?! 😱</div>
+            </div>
+          </div>
+          <div class="wp-label">You</div>
+        </div>
+        <div class="wp-connection">
+          <div class="signal-waves">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="wp-phone p2">
+          <div class="wp-screen">
+            <div class="wp-header">
+              <span class="dot"></span> Watch Party
+            </div>
+            <div class="wp-video"></div>
+            <div class="wp-chat-area">
+              <div class="chat-bubble right pop-2">NO WAY! 🤯</div>
+            </div>
+          </div>
+           <div class="wp-label">Bestie</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flixy Mascot -->
+    <div class="flixy-container" id="flixy">
+      <div class="flixy-bubble" id="flixy-bubble">Hi! I'm Flixy. Scroll to explore! 🤖</div>
+      <div class="flixy-avatar">
+        <div class="flixy-eye left"></div>
+        <div class="flixy-eye right"></div>
+        <div class="flixy-mouth"></div>
+      </div>
+    </div>
+
+    <style>
+      /* Timeline Styles */
+      .narrative-section { margin-bottom: 4rem; position: relative; }
+      .timeline { max-width: 800px; margin: 0 auto; position: relative; padding: 20px 0; }
+      .timeline-line {
+        position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+        background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+        transform: translateX(-50%);
+      }
+      .timeline-item {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 60px; position: relative;
+      }
+      .timeline-item.reverse { flex-direction: row-reverse; }
+      .timeline-content { width: 42%; background: var(--bg-card); padding: 20px; border-radius: 16px; border: 1px solid var(--border-subtle); }
+      .timeline-content h3 { color: var(--accent); font-size: 0.9rem; margin-bottom: 8px; text-transform: uppercase; }
+      .timeline-content p { font-size: 0.95rem; line-height: 1.5; color: var(--text-secondary); }
+      
+      .timeline-point {
+        width: 40px; height: 40px; background: var(--bg-dark); border: 2px solid var(--accent);
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        z-index: 2; font-size: 1.2rem;
+      }
+      
+      .timeline-visual { width: 42%; display: flex; justify-content: center; }
+      
+      .mini-phone {
+        width: 100px; height: 180px; background: #222; border-radius: 12px; border: 4px solid #333;
+        overflow: hidden; position: relative;
+      }
+      .mini-screen { width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; }
+      
+      .resume-screen .mini-cover { height: 60%; background: linear-gradient(45deg, #e50914, #000); }
+      .resume-screen .mini-ui { padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+      .resume-screen span { font-size: 8px; color: #fff; }
+      .progress-bar { height: 4px; background: #333; border-radius: 2px; }
+      .progress-bar .fill { width: 40%; height: 100%; background: var(--accent); }
+
+      .vertical-feed { gap: 2px; }
+      .feed-item { width: 100%; height: 50%; background-size: cover; opacity: 0.8; }
+      .item-1 { background: linear-gradient(135deg, #43cea2, #185a9d); }
+      .item-2 { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+
+      .mini-tv {
+        width: 160px; height: 90px; background: #222; border-radius: 4px; border: 4px solid #333;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .mini-tv-screen { width: 100%; height: 100%; background: linear-gradient(to right, #111, #222); display: flex; align-items: center; justify-content: center; }
+      .mood-selected { font-size: 10px; color: #fff; background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 12px; }
+
+      /* Watch Party Styles */
+      .watch-party-demo { margin-bottom: 4rem; text-align: center; }
+      .wp-container { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 2rem; }
+      
+      .wp-phone { width: 140px; height: 260px; background: #222; border-radius: 18px; border: 6px solid #444; overflow: hidden; position: relative; }
+      .wp-screen { width: 100%; height: 100%; background: #000; position: relative; }
+      .wp-header { height: 24px; background: rgba(0,0,0,0.5); position: absolute; top:0; width: 100%; z-index: 2; display: flex; align-items: center; padding-left: 8px; font-size: 8px; gap: 4px; color: #fff; }
+      .dot { width: 4px; height: 4px; background: #0f0; border-radius: 50%; }
+      
+      .wp-video { width: 100%; height: 100%; background: linear-gradient(to bottom, #333, #000); }
+      .wp-chat-area { position: absolute; bottom: 0; width: 100%; height: 80px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 10px; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; }
+      
+      .chat-bubble { font-size: 9px; padding: 6px 8px; border-radius: 8px; color: #fff; max-width: 80%; opacity: 0; animation: popIn 0.5s forwards; }
+      .chat-bubble.left { background: rgba(255,255,255,0.2); align-self: flex-start; border-bottom-left-radius: 2px; }
+      .chat-bubble.right { background: var(--accent); align-self: flex-end; border-bottom-right-radius: 2px; }
+      
+      .pop-1 { animation-delay: 1s; }
+      .pop-2 { animation-delay: 2.5s; }
+
+      @keyframes popIn {
+        from { transform: translateY(10px) scale(0.8); opacity: 0; }
+        to { transform: translateY(0) scale(1); opacity: 1; }
+      }
+
+      .signal-waves span {
+        display: block; width: 10px; height: 10px; border-right: 2px solid rgba(255,255,255,0.2); border-radius: 50%;
+        animation: pulseSignal 1.5s infinite;
+      }
+      .signal-waves span:nth-child(2) { animation-delay: 0.2s; }
+      .signal-waves span:nth-child(3) { animation-delay: 0.4s; }
+      
+      @keyframes pulseSignal {
+        0% { opacity: 0.2; }
+        50% { opacity: 1; border-color: var(--accent); }
+        100% { opacity: 0.2; }
+      }
+
+      .wp-label { margin-top: 8px; font-size: 0.8rem; color: #888; }
+
+      /* Flixy Mascot */
+      .flixy-container {
+        position: fixed; bottom: 30px; right: 30px; z-index: 100;
+        cursor: pointer; transition: transform 0.3s;
+      }
+      .flixy-container:hover { transform: translateY(-5px); }
+      
+      .flixy-avatar {
+        width: 60px; height: 60px; background: linear-gradient(135deg, #e50914, #ff5e62);
+        border-radius: 50%; box-shadow: 0 8px 24px rgba(229,9,20,0.4);
+        display: flex; align-items: center; justify-content: center; position: relative;
+        animation: float 3s ease-in-out infinite;
+      }
+      
+      .flixy-eye { width: 8px; height: 8px; background: #fff; border-radius: 50%; position: absolute; top: 22px; animation: blink 4s infinite; }
+      .flixy-eye.left { left: 18px; }
+      .flixy-eye.right { right: 18px; }
+      
+      .flixy-mouth {
+        width: 12px; height: 6px; border-bottom: 2px solid #fff; border-radius: 50%;
+        position: absolute; bottom: 18px;
+      }
+
+      .flixy-bubble {
+        position: absolute; right: 70px; bottom: 40px;
+        background: #fff; color: #000; padding: 10px 16px; border-radius: 20px;
+        border-bottom-right-radius: 4px; font-size: 0.85rem; font-weight: 600;
+        white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none;
+      }
+      
+      .flixy-container:hover .flixy-bubble, .flixy-bubble.visible { opacity: 1; transform: translateY(0); }
+
+      @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+      @keyframes blink { 0%, 48%, 52% { transform: scaleY(1); } 50% { transform: scaleY(0.1); } }
+      
+      @media(max-width: 768px) {
+        .timeline-line { left: 20px; }
+        .timeline-item { flex-direction: column; align-items: flex-start; gap: 16px; margin-left: 40px; }
+        .timeline-item.reverse { flex-direction: column; }
+        .timeline-content { width: 100%; }
+        .timeline-point { left: -40px; position: absolute; }
+        .timeline-visual { width: 100%; justify-content: flex-start; }
+      }
+    </style>
+
     <section class="category-section">
       <div class="category-header">
         <h2 class="category-title">Trending Now</h2>
@@ -1006,6 +1246,54 @@
       </div>
     </section>
 
+    <section class="tech-section">
+      <div class="tech-content">
+        <h2>The Tech Behind the Magic</h2>
+        <p>Our neural recommendation engine analyzes 50+ data points to find your next obsession.</p>
+        <div class="tech-visual">
+          <div class="node-grid">
+            <div class="node center">You</div>
+            <div class="node p1">Genre</div>
+            <div class="node p2">Cast</div>
+            <div class="node p3">Mood</div>
+            <div class="node p4">History</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .tech-section {
+        background: radial-gradient(circle at center, #1a1a2e 0%, #05060f 100%);
+        padding: 4rem 2rem; border-radius: 24px; margin-bottom: 3rem; text-align: center;
+        border: 1px solid var(--border-subtle); position: relative; overflow: hidden;
+      }
+      .tech-section h2 { font-size: 2rem; margin-bottom: 1rem; color: #fff; }
+      .tech-section p { color: var(--text-secondary); max-width: 600px; margin: 0 auto 3rem; }
+      
+      .tech-visual { height: 200px; display: flex; align-items: center; justify-content: center; position: relative; }
+      .node {
+        width: 60px; height: 60px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        font-size: 0.8rem; color: #aaa; position: absolute; transition: all 0.3s;
+      }
+      .node.center {
+        width: 80px; height: 80px; background: var(--accent); color: #fff; border: none;
+        z-index: 2; box-shadow: 0 0 30px var(--accent-glow);
+      }
+      
+      .node.p1 { top: 10%; left: 30%; animation: pulseNode 3s infinite; }
+      .node.p2 { top: 20%; right: 25%; animation: pulseNode 3s infinite 0.5s; }
+      .node.p3 { bottom: 15%; left: 35%; animation: pulseNode 3s infinite 1s; }
+      .node.p4 { bottom: 25%; right: 30%; animation: pulseNode 3s infinite 1.5s; }
+      
+      @keyframes pulseNode {
+        0% { transform: scale(1); border-color: rgba(255,255,255,0.2); }
+        50% { transform: scale(1.1); border-color: var(--accent); color: #fff; }
+        100% { transform: scale(1); border-color: rgba(255,255,255,0.2); }
+      }
+    </style>
+
     <footer>
       <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
         <a href="https://github.com/mzazimhenga22/movieflix/releases/latest/download/movieflix.apk" class="download-btn"
@@ -1024,7 +1312,7 @@
           TV App
         </a>
       </div>
-      <p>&copy; 2024 MovieFlix. Built with React Native.</p>
+      <p>&copy; 2024 MovieFlix. Made by mzazimhenga.</p>
     </footer>
   </div>
 
@@ -1121,6 +1409,39 @@
         }
       });
     }
+
+    // Feature #5: Parallax Effect
+    document.addEventListener('mousemove', (e) => {
+      const orbs = document.querySelectorAll('.orb');
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      
+      orbs.forEach((orb, index) => {
+        const speed = (index + 1) * 20;
+        const xOffset = (0.5 - x) * speed;
+        const yOffset = (0.5 - y) * speed;
+        orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+      });
+    });
+
+    // Feature #2: Flixy Interactions
+    window.addEventListener('scroll', () => {
+      const bubble = document.getElementById('flixy-bubble');
+      const scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      
+      if (scrollPct > 0.1 && scrollPct < 0.3) {
+        bubble.textContent = "Check out our mobile app! 📱";
+        bubble.classList.add('visible');
+      } else if (scrollPct > 0.4 && scrollPct < 0.6) {
+        bubble.textContent = "Watch parties are fun! 🍿";
+        bubble.classList.add('visible');
+      } else if (scrollPct > 0.8) {
+        bubble.textContent = "Thanks for visiting! 👋";
+        bubble.classList.add('visible');
+      } else {
+        bubble.classList.remove('visible');
+      }
+    });
 
     loadMovies();
   </script>

@@ -502,20 +502,20 @@
       </div>
       <div class="btn-group" style="display: flex; gap: 1rem;">
         <a href="https://github.com/mzazimhenga22/movieflix/releases/latest/download/movieflix.apk" class="download-btn"
-          download>
+          download id="btn-download-phone">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path
               d="M12 2a1 1 0 0 1 1 1v9.586l2.293-2.293 1.414 1.414L12 16.414 7.293 11.707l1.414-1.414L11 12.586V3a1 1 0 0 1 1-1Zm-8 17h16v2H4v-2Z" />
           </svg>
-          Mobile App
+          <span id="text-download-phone">Mobile App</span>
         </a>
         <a href="https://github.com/mzazimhenga22/movieflix/releases/latest/download/movieflixtv.apk"
-          class="download-btn" style="background: #7c3aed;" download>
+          class="download-btn" style="background: #7c3aed;" download id="btn-download-tv">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path
               d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z" />
           </svg>
-          TV App
+          <span id="text-download-tv">TV App</span>
         </a>
       </div>
     </header>
@@ -2145,30 +2145,55 @@
 
     loadMovies();
   </script>
+
   <script>
-    // Dynamically update download links to point to the correct release assets
-    document.addEventListener('DOMContentLoaded', () => {
-      fetch('https://api.github.com/repos/mzazimhenga22/movieflix/releases')
-        .then(response => response.json())
-        .then(releases => {
-          if (!Array.isArray(releases)) return;
+    async function updateDownloadLinks() {
+      try {
+        const response = await fetch('https://api.github.com/repos/mzazimhenga22/movieflix/releases');
+        const releases = await response.json();
 
-          // Find latest TV app release
-          const tvRelease = releases.find(r => r.assets && r.assets.some(a => a.name === 'movieflixtv.apk'));
-          if (tvRelease) {
-            const tvAsset = tvRelease.assets.find(a => a.name === 'movieflixtv.apk');
-            const tvBtn = document.querySelector('a[href*="movieflixtv.apk"]');
-            if (tvBtn && tvAsset) {
-              tvBtn.href = tvAsset.browser_download_url;
-              console.log('Updated TV link to:', tvAsset.browser_download_url);
-            }
-          }
+        if (!releases || releases.length === 0) return;
 
-          // Optional: Verify Phone app link 
-          // (Left as 'latest' default, but could be updated similarly if needed)
-        })
-        .catch(err => console.error('Failed to resolve release versions:', err));
-    });
+        // Strategy: Find the latest release that is NOT a draft and NOT a prerelease (unless no stable release exists)
+        // Since the user mentioned "latest", we look for the top one. 
+        // GitHub API returns releases in created_at descending order by default.
+
+        // Let's filter for the first valid release that has assets
+        const latestRelease = releases.find(r => !r.draft && !r.prerelease) || releases[0];
+
+        if (!latestRelease) return;
+
+        const assets = latestRelease.assets;
+        const tag = latestRelease.tag_name;
+
+        // Find specific assets
+        const phoneAsset = assets.find(a => a.name === 'movieflix.apk');
+        const tvAsset = assets.find(a => a.name === 'movieflixtv.apk');
+
+        const phoneBtn = document.getElementById('btn-download-phone');
+        const tvBtn = document.getElementById('btn-download-tv');
+        const phoneText = document.getElementById('text-download-phone');
+        const tvText = document.getElementById('text-download-tv');
+
+        if (phoneAsset && phoneBtn) {
+          phoneBtn.href = phoneAsset.browser_download_url;
+          if (phoneText) phoneText.innerText = `Mobile App (${tag})`;
+        }
+
+        if (tvAsset && tvBtn) {
+          tvBtn.href = tvAsset.browser_download_url;
+          // If we wanted to distinguish versions, we could look for a different release for TV
+          // But assuming same release based on current repo structure
+          if (tvText) tvText.innerText = `TV App (${tag})`;
+        }
+
+      } catch (error) {
+        console.error('Failed to fetch latest releases:', error);
+        // Fallback is already the valid "latest" link in HREF, so no action needed if fail.
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', updateDownloadLinks);
   </script>
 </body>
 

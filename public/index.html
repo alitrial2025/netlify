@@ -2154,42 +2154,39 @@
 
         if (!releases || releases.length === 0) return;
 
-        // Strategy: Find the latest release that is NOT a draft and NOT a prerelease (unless no stable release exists)
-        // Since the user mentioned "latest", we look for the top one. 
-        // GitHub API returns releases in created_at descending order by default.
-
-        // Let's filter for the first valid release that has assets
-        const latestRelease = releases.find(r => !r.draft && !r.prerelease) || releases[0];
-
-        if (!latestRelease) return;
-
-        const assets = latestRelease.assets;
-        const tag = latestRelease.tag_name;
-
-        // Find specific assets
-        const phoneAsset = assets.find(a => a.name === 'movieflix.apk');
-        const tvAsset = assets.find(a => a.name === 'movieflixtv.apk');
-
         const phoneBtn = document.getElementById('btn-download-phone');
         const tvBtn = document.getElementById('btn-download-tv');
         const phoneText = document.getElementById('text-download-phone');
         const tvText = document.getElementById('text-download-tv');
 
-        if (phoneAsset && phoneBtn) {
-          phoneBtn.href = phoneAsset.browser_download_url;
-          if (phoneText) phoneText.innerText = `Mobile App (${tag})`;
+        // Find latest release WITH the phone apk
+        const phoneRelease = releases.find(r =>
+          !r.draft && !r.prerelease && r.assets.some(a => a.name === 'movieflix.apk')
+        );
+
+        if (phoneRelease && phoneBtn) {
+          const asset = phoneRelease.assets.find(a => a.name === 'movieflix.apk');
+          if (asset) {
+            phoneBtn.href = asset.browser_download_url;
+            if (phoneText) phoneText.innerText = `Mobile App (${phoneRelease.tag_name})`;
+          }
         }
 
-        if (tvAsset && tvBtn) {
-          tvBtn.href = tvAsset.browser_download_url;
-          // If we wanted to distinguish versions, we could look for a different release for TV
-          // But assuming same release based on current repo structure
-          if (tvText) tvText.innerText = `TV App (${tag})`;
+        // Find latest release WITH the tv apk
+        const tvRelease = releases.find(r =>
+          !r.draft && !r.prerelease && r.assets.some(a => a.name === 'movieflixtv.apk')
+        );
+
+        if (tvRelease && tvBtn) {
+          const asset = tvRelease.assets.find(a => a.name === 'movieflixtv.apk');
+          if (asset) {
+            tvBtn.href = asset.browser_download_url;
+            if (tvText) tvText.innerText = `TV App (${tvRelease.tag_name})`;
+          }
         }
 
       } catch (error) {
         console.error('Failed to fetch latest releases:', error);
-        // Fallback is already the valid "latest" link in HREF, so no action needed if fail.
       }
     }
 
